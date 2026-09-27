@@ -2,21 +2,29 @@
 
 > **MSc Thesis Research · Artificial Intelligence & Robotics**
 
-**Investigating when and why uncertainty estimates become unreliable under mechanism-specific distribution shift, with a focus on calibration, controlled interventions, and causal / counterfactual analysis.**
+This repository contains the research code and experimental design for my Master's thesis on calibration failure in uncertainty-aware world models under mechanism-specific distribution shift.
+
+The project asks a simple question: when the data distribution changes, **which part of the change is responsible for the resulting calibration failure, and how large is that effect?**
+
+The study focuses on three mechanisms of distribution shift:
+
+* **Dynamics shift**
+* **Observation shift**
+* **Policy shift**
+
+The main goal is to compare these mechanisms under controlled conditions rather than treating distribution shift as a single undifferentiated source of failure.
 
 ---
 
-## Overview
+## Why this problem?
 
-Uncertainty estimates are useful only when they remain meaningfully calibrated under the conditions in which an AI system is evaluated or deployed.
+Uncertainty estimates are useful only when they provide a reasonably calibrated description of predictive uncertainty.
 
-Under **distribution shift**, calibration can degrade. However, distribution shift is not a single homogeneous phenomenon: changes in **dynamics**, **observations**, and **policy-induced state distributions** can affect different parts of the predictive pipeline.
+Under distribution shift, this relationship can break down. A model may remain useful in some respects while its uncertainty estimates become less reliable. More importantly, different types of distribution shift do not necessarily affect the predictive pipeline in the same way.
 
-This project therefore studies **mechanism-specific calibration failure** rather than treating all distribution shift as one aggregate phenomenon.
+A change in transition dynamics, for example, is different from corrupting the observation process. A policy change is different again, because it can alter which states and actions are being evaluated.
 
-The central research direction is:
-
-**Uncertainty → Calibration → Calibration Failure → Mechanism-Specific Distribution Shift → Counterfactual Analysis → Statistical Validation → Recalibration → Reliable Decision-Making**
+This thesis studies these mechanisms separately and asks whether their effects on calibration can be distinguished in a controlled experimental setting.
 
 ---
 
@@ -24,202 +32,200 @@ The central research direction is:
 
 > **Which mechanism-specific distribution shift is associated with calibration failure in an uncertainty-aware offline world model, and by how much under controlled intervention?**
 
-The primary comparison considers three mechanisms:
+The primary comparison is between:
 
-* **Dynamics shift**
-* **Observation shift**
-* **Policy shift**
+1. **Dynamics intervention**
+2. **Observation intervention**
+3. **Policy intervention**
 
-The goal is to determine whether controlled changes in these mechanisms produce systematically different calibration outcomes.
-
----
-
-## Mechanism-Specific Shift
-
-### Dynamics Shift
-
-A controlled change is applied to the **transition dynamics** during evaluation while keeping the observation and policy components fixed.
-
-### Observation Shift
-
-A controlled **corruption / noise transformation** is applied to observations while keeping the underlying dynamics and policy fixed.
-
-### Policy Shift
-
-The **action-selection rule** is changed on a fixed set of probe states while avoiding unrestricted rollout drift in the primary analysis.
-
-This separation is central to the study because the objective is to investigate the contribution of the **shift mechanism itself**, rather than only comparing aggregate levels of out-of-distribution severity.
+The aim is not simply to compare which condition has the largest error. The aim is to examine whether changing the shift mechanism produces a systematic change in calibration-related outcomes under a controlled design.
 
 ---
 
-## Counterfactual Setup
+## Study Design
 
-The core experimental unit is a **matched model–evaluation instance**.
+The basic unit of comparison is a matched model–evaluation instance.
 
-For each comparison:
+The same trained model is evaluated under a baseline condition and under a controlled intervention. Wherever possible, the same evaluation states and reusable sources of randomness are retained across the paired conditions.
 
-1. The trained world-model instance is kept fixed.
-2. The evaluation setup is matched as closely as possible.
-3. Reusable sources of randomness are shared where appropriate.
-4. One shift mechanism is intervened on.
-5. The resulting change in calibration-related outcomes is measured relative to baseline.
+This allows the analysis to focus on the difference introduced by the intervention rather than on unrelated variation between runs.
 
-The primary design uses **Common Random Numbers (CRN)** and **paired comparisons** to reduce variation unrelated to the intervention.
+The thesis uses **Common Random Numbers (CRN)** and paired comparisons as part of this design.
 
-The intended mechanism-level estimand is:
+The primary estimand is a mechanism-specific average treatment effect relative to baseline. In practical terms, this means measuring how much the chosen calibration outcome changes when one shift mechanism is introduced while the rest of the comparison is kept controlled.
 
-$$
-ATE_m = E[Y(m) - Y(0)]
-$$
-
-where:
-
-* \(m\) denotes the intervention mechanism,
-* \(Y\) is the defined calibration-related outcome,
-* \(0\) denotes the baseline condition.
-
-The causal interpretation is restricted to the controlled experimental design and its documented assumptions.
+The interpretation remains tied to the experimental design and its assumptions. The project does not claim that a controlled simulation automatically establishes a causal effect in the real world.
 
 ---
 
-## Method
+## Shift Mechanisms
 
-### Uncertainty-Aware World Model
+### Dynamics shift
+
+A controlled change is introduced into the transition dynamics during evaluation.
+
+The observation process and action-selection mechanism are kept fixed for the main comparison.
+
+### Observation shift
+
+A controlled transformation is applied to the observations, such as added noise or corruption.
+
+The underlying dynamics and policy are kept fixed.
+
+### Policy shift
+
+The action-selection rule is changed while evaluating the model on a fixed set of probe states.
+
+The main analysis does not use unrestricted rollouts for this intervention. This is intended to avoid mixing the effect of policy change with additional state-distribution drift caused by a new rollout.
+
+The thesis treats these three mechanisms as distinct interventions because they affect different parts of the predictive pipeline.
+
+---
+
+## World Model
 
 The project uses a **state-based probabilistic ensemble world model**.
 
-**Model design**
+The baseline design is a small ensemble of multilayer perceptrons trained on offline reinforcement-learning data.
 
-* Multilayer Perceptron (**MLP**)
-* Ensemble size: **K = 5**
-* Probabilistic next-state prediction
+**Model configuration**
+
+* MLP-based probabilistic predictors
+* **5 ensemble members**
+* Next-state prediction
 * Gaussian predictive distributions
 * Ensemble-based uncertainty estimation
 
-For ensemble member \(k\):
+Each ensemble member predicts the next state as a probability distribution conditioned on the current state and action.
 
-$$
-p_k(s_{t+1}\mid s_t,a_t)
-=
-\mathcal{N}(\mu_k,\sigma_k^2)
-$$
+In practical terms, the model predicts both a mean and a variance for its next-state estimate. The predictions from the ensemble are then combined to estimate predictive uncertainty and ensemble disagreement.
 
-The ensemble combines predictive behaviour across members to represent uncertainty while distinguishing within-model predictive variability from ensemble disagreement.
-
-### Data
-
-The study is designed around **offline reinforcement-learning data** with reproducible dataset metadata and manifests.
-
-Raw datasets are **not committed to Git**.
-
-Dataset versions, environment information, and relevant metadata are intended to be recorded through configuration and manifest files.
-
-### Primary Prediction Horizon
-
-The primary analysis uses **1-step transition prediction**.
-
-Multi-step evaluation is treated as an extension because rollout compounding and policy feedback can introduce additional sources of variation into mechanism attribution.
+The ensemble is used as a practical uncertainty-estimation method rather than as the scientific contribution by itself.
 
 ---
 
-## Calibration & Evaluation
+## Data
 
-The primary outcome is a **regression-appropriate calibration measure**.
+The study is designed around **offline reinforcement-learning data** with explicit dataset metadata and manifests.
 
-Secondary evaluation includes:
+The current research plan prioritizes benchmark datasets compatible with the Minari / RL4D ecosystem, with **Hopper** and **Walker2d** as the main environments.
+
+Large raw datasets will remain outside Git. The repository will contain dataset manifests, version information, and the metadata needed to reconstruct the experimental setup.
+
+---
+
+## Prediction Horizon
+
+The primary analysis uses **1-step transition prediction**.
+
+This keeps the attribution problem as direct as possible: the intervention is applied to one transition and its effect is measured on the corresponding predictive uncertainty and calibration outcome.
+
+Multi-step rollouts may be studied later as a robustness or propagation analysis, but they are not the primary thesis-level outcome.
+
+---
+
+## Calibration and Evaluation
+
+The main outcome is a **regression-specific calibration error** appropriate for continuous probabilistic prediction.
+
+The evaluation also considers:
 
 * **Negative Log-Likelihood (NLL)**
 * **Prediction-interval coverage**
 * **Sharpness**
 * **CRPS**
-* **Predictive variance**
-* **Ensemble disagreement**
-* **Calibration curves**
-* **Error–uncertainty relationship**
+* Predictive uncertainty
+* Ensemble disagreement
+* Calibration curves
+* Error–uncertainty relationships
 
-Calibration and sharpness are treated as complementary properties of probabilistic predictions rather than interchangeable measures.
+Calibration and sharpness are treated as complementary properties. A useful uncertainty estimate should not only be statistically aligned with observed outcomes, but should also remain informative rather than unnecessarily broad.
 
----
-
-## Statistical Validation
-
-The experimental design is based on matched observations and repeated model instances.
-
-Planned statistical components include:
-
-* **Paired differences**
-* **Multi-seed evaluation**
-* **Bootstrap confidence intervals**
-* **Paired permutation tests**
-* **Effect sizes**
-* **Holm correction for multiple comparisons**
-
-The analysis will emphasize **effect estimates and uncertainty intervals**, rather than relying only on statistical significance.
+The project therefore does not rely on the classical classification ECE as the primary uncertainty-calibration measure for continuous regression.
 
 ---
 
-## Evidence Status
+## Statistical Analysis
 
-> 🚧 **IN DESIGN / PILOT PHASE**
+The comparison is designed around paired observations and repeated model instances.
 
-The research protocol, experimental design, and repository architecture are being implemented and tested.
+The planned analysis includes:
 
-At this stage, the repository does **not** claim final empirical findings.
+* paired differences
+* bootstrap confidence intervals
+* paired permutation tests
+* effect sizes
+* multi-seed evaluation
+* Holm correction for multiple comparisons
 
-Evidence status will evolve according to the project's actual maturity:
+The emphasis is on estimating the size and uncertainty of the mechanism-specific effect, rather than reporting statistical significance alone.
+
+The current design recommends multiple matched training seeds, with the exact number adjusted according to the available compute budget and pilot results.
+
+---
+
+## Current Status
+
+> **Status: IN DESIGN / PILOT PHASE**
+
+The research question and experimental protocol are defined, while the implementation and validation of the full pipeline are still in progress.
+
+The project follows an evidence-based maturity model:
 
 `IN DESIGN → PROTOTYPE → PRELIMINARY → VALIDATED → REPRODUCIBLE`
 
-No status will be upgraded without the corresponding experimental and statistical evidence.
+These labels are intended to reflect the actual state of the work. A running script is not treated as validated evidence.
+
+No final empirical claim is reported in this repository until the corresponding experiment, analysis, and reproducibility checks have been completed.
 
 ---
 
 ## Results
 
-### No final results reported yet.
+Results will be added here as the experimental work develops.
 
-Results will be added only when they can be traced through the full research chain:
+For each reported result, the intended traceability is:
 
 **Research Question → Hypothesis → Intervention → Configuration → Experiment → Statistical Analysis → Result**
 
-No placeholder numbers, unsupported claims, or illustrative results will be presented as empirical findings.
+No placeholder numbers or illustrative plots will be presented as empirical findings.
+
+This is especially important for a research repository: every reported number should be recoverable from the corresponding code and configuration.
 
 ---
 
 ## Limitations
 
-The main limitations currently considered include:
+There are several limitations that are part of the current research design.
 
-* Controlled simulation does not establish causal effects in real-world deployment.
-* Causal interpretation depends on the intervention design and its assumptions.
-* The primary policy intervention uses fixed probe states rather than unrestricted rollout.
-* Calibration behaviour may depend on model architecture, environment, dataset, and random seed.
-* Multi-step uncertainty propagation is not the primary thesis-level outcome.
-* Mechanism comparisons require careful control or matching of intervention severity.
+First, the experiments are controlled simulations. They are intended to study mechanism-specific effects under a defined experimental setup, not to establish real-world causal effects directly.
 
-These limitations will be refined as the experimental evidence develops.
+Second, the interpretation of the policy intervention depends on the fixed probe-state design used in the primary analysis.
+
+Third, calibration behaviour can vary with the environment, dataset, model architecture, and random seed.
+
+Finally, matching the severity of different shift mechanisms is itself a methodological issue. An apparent difference between mechanisms can be misleading if one intervention simply produces a stronger distributional change than another. The experiment therefore treats intervention severity and its definition as an explicit part of the protocol.
 
 ---
 
 ## Reproducibility
 
-The repository is designed around **explicit configuration, controlled randomness, and traceable outputs**.
+Reproducibility is treated as part of the experimental design rather than as a final cleanup step.
 
 Each experiment should record:
 
+* dataset and version
 * environment
-* dataset version / manifest
 * model configuration
-* random seed
+* training seed
+* evaluation seed
 * shift mechanism
 * intervention severity
 * output location
 
-The intended principle is:
+The intention is that a reported result can be traced back to a specific configuration and rerun without relying on undocumented manual steps.
 
-> **Every reported result should be reproducible from code, configuration, and recorded experimental metadata.**
-
-Large datasets remain outside Git; only manifests and relevant reproducibility metadata belong in the repository.
+Raw datasets are not committed to Git. The repository stores manifests and metadata instead.
 
 ---
 
@@ -270,62 +276,48 @@ causal-calibration-attribution/
 └── tests/
 ```
 
-### Design principles
+The main directories have distinct roles:
 
-The repository architecture follows the scientific structure of the project:
+* `models/` contains the probabilistic world-model implementation.
+* `shifts/` contains the dynamics, observation, and policy interventions.
+* `metrics/` contains calibration and uncertainty metrics.
+* `causal/` contains the counterfactual and causal-analysis layer.
+* `stats/` contains effect estimation and statistical inference.
+* `experiments/` contains experiment definitions and execution scripts.
+* `results/` contains figures, tables, logs, and machine-readable outputs.
+* `docs/` contains the methodological documentation.
+* `tests/` contains implementation and statistical checks.
 
-* `models/` — probabilistic world models and ensembles
-* `shifts/` — dynamics, observation, and policy interventions
-* `metrics/` — calibration and uncertainty metrics
-* `causal/` — counterfactual and causal analysis
-* `stats/` — effect estimation and statistical inference
-* `experiments/` — reproducible experiment definitions and execution
-* `results/` — machine-readable outputs, tables, figures, and logs
-* `docs/` — methodological and scientific documentation
-* `tests/` — implementation and statistical checks
-
-The `causal/` layer is explicit because causal attribution is a **core methodological component** of the thesis rather than an analysis hidden inside notebooks.
+The causal layer is kept explicit because causal attribution is part of the scientific method of the thesis, not an analysis hidden inside a notebook. The planned repository architecture follows the same principle.
 
 ---
 
-## Research Scope
+## Research Lineage
 
-This repository represents the **MSc thesis / Paper 1 diagnosis stage** of a broader research program:
-
-**Thesis → Paper 1 → Paper 2 → PhD**
+This repository is the **MSc thesis / diagnosis stage** of a broader research program.
 
 ### MSc Thesis
 
 **Counterfactual Causal Attribution of Calibration Failure in Uncertainty-Aware World Models under Mechanism-Specific Distribution Shift**
 
-Scientific foundation: controlled mechanism-specific interventions and causal / counterfactual attribution of calibration failure.
+The thesis focuses on identifying and quantifying mechanism-specific calibration failure under controlled interventions.
 
 ### Paper 1
 
 **Why Ensembles Miscalibrate Differently: Causal Attribution of Calibration Failure under Dynamics, Observation, and Policy Shift**
 
-Focus: empirical diagnosis and mechanism-specific comparison.
+The planned paper extends the empirical diagnosis and studies mechanism differences in greater detail.
 
-### Later Research
+### Broader Research Direction
 
-Future work may extend the diagnosis toward:
+**Reliable Decision-Making for AI Systems under Uncertainty and Distribution Shift: A Causal Approach to Calibration and Safety**
 
-**Causally-Informed Recalibration → Safety-Constrained Decision Making → Reliable AI Decision-Making under Distribution Shift**
-
-These later components are not represented here as completed contributions.
+The longer-term research direction moves from diagnosis toward causally informed recalibration and safer downstream decision-making.
 
 ---
 
 ## Author
 
 **Morteza Toghani**
+
 MSc Artificial Intelligence & Robotics
-
----
-
-## Research Identity
-
-> **Reliable Decision-Making for AI Systems under Uncertainty and Distribution Shift: A Causal Approach to Calibration and Safety**
-
-**Research umbrella:**
-Reliable AI Decision-Making under Uncertainty and Distribution Shift
