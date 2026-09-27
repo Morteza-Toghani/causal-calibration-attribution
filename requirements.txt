@@ -1,1 +1,12 @@
+numpy
+pandas
+scipy
+matplotlib
+pyyaml
 
+torch
+
+gymnasium[mujoco]
+minari
+
+pytest
