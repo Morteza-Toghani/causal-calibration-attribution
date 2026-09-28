@@ -1,34 +1,24 @@
-cat > .gitignore << 'EOF'
-# Python
-__pycache__/
-*.pyc
-*.pyo
+# Model checkpoints and large artifacts
+*.pt
+*.pth
+*.ckpt
+
+# Training outputs
+checkpoints/
+results/models/
+
+# Processed data (regenerable from loader.py, keep manifest.json only)
+data/processed/*/*.npz
+
+# Local environments
 .venv/
 venv/
-env/
-*.egg-info/
+__pycache__/
+*.py[cod]
 
-# Jupyter
-.ipynb_checkpoints/
-
-# Data (large files, keep only manifests)
-data/*
-!data/manifests/
-!data/.gitkeep
-
-# Results (generated outputs)
-results/figures/*
-results/tables/*
-results/logs/*
-!results/figures/.gitkeep
-!results/tables/.gitkeep
-!results/logs/.gitkeep
+# Experiment caches
+.cache/
 
 # OS files
 .DS_Store
 Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-EOF
