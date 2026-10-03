@@ -1,0 +1,55 @@
+{
+  "audit_1_per_dimension_coverage": {
+    "0.5": [
+      0.9815358403809836,
+      0.9840709417850398,
+      0.9930002463256425,
+      0.9908346333853354,
+      0.6216335495525084,
+      0.8704737663190738,
+      0.7684949503243288,
+      0.8644593152147139,
+      0.902198456359307,
+      0.8308974464241727,
+      0.8406170457344609
+    ],
+    "0.9": [
+      0.9999384185893752,
+      0.9991686509565646,
+      0.999784465062813,
+      0.9999897364315625,
+      0.995412184908449,
+      0.9867907874209705,
+      0.9912554396912718,
+      0.98902824534034,
+      0.9920765251662698,
+      0.9865034075047212,
+      0.990177765005337
+    ]
+  },
+  "audit_2_aleatoric_vs_epistemic": {
+    "mean_aleatoric": 0.020982732996344566,
+    "mean_epistemic": 0.0010262017603963614,
+    "mean_total": 0.022008925676345825,
+    "fraction_aleatoric": 0.9533737950188017,
+    "fraction_epistemic": 0.04662661755904222
+  },
+  "audit_3_standardized_residuals": {
+    "z_mean": 0.10683954228217676,
+    "z_std": 0.4492807595728665,
+    "frac_within_50pct_bound": 0.8771180273048242,
+    "frac_within_90pct_bound": 0.9936487172405557
+  },
+  "audit_4_normalization_check": {
+    "loader_applies_standardization": false,
+    "model_predicts_in_raw_units": true,
+    "any_inverse_transform_step_present": false
+  },
+  "audit_5_split_isolation": {
+    "split_used_as_val_during_training": "calibration",
+    "used_for_gradient_updates": false,
+    "used_for_early_stopping_or_model_selection": false,
+    "used_for_logging_only": true,
+    "test_split_touched_during_training": false
+  }
+}

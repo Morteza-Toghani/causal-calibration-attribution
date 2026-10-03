@@ -1,0 +1,365 @@
+{
+  "0": {
+    "raw_log_var": {
+      "min": -14.87463092803955,
+      "max": -7.728253364562988,
+      "mean": -14.099390029907227,
+      "median": -14.243072509765625
+    },
+    "effective_log_var": {
+      "min": -14.87463092803955,
+      "max": -7.728253364562988,
+      "mean": -14.099390029907227,
+      "median": -14.243072509765625
+    },
+    "aleatoric_sigma_member0": {
+      "min": 0.0005888639134354889,
+      "max": 0.020981237292289734,
+      "mean": 0.0009011449292302132,
+      "median": 0.0008075252408161759
+    },
+    "predictive_sigma_ensemble": {
+      "min": 0.0009836027428668885,
+      "max": 0.1160773305614826,
+      "mean": 0.0015062341038651326
+    },
+    "rmse": 0.0006702805403620005,
+    "mean_abs_error": 0.0005058660171926022,
+    "sigma_over_mean_abs_error_predictive": 2.977535657018947,
+    "fraction_lower_saturated": 0.0,
+    "fraction_upper_saturated": 0.0,
+    "exp_of_mean_raw_logvar_over_2": 0.0008676735444135875,
+    "sqrt_of_mean_aleatoric_variance": 0.00095379474805668,
+    "note": "exp(mean(x)/2) != sqrt(mean(exp(x))) by Jensen's inequality -- these are expected to differ; that is not a bug."
+  },
+  "1": {
+    "raw_log_var": {
+      "min": -14.94990062713623,
+      "max": -8.707985877990723,
+      "mean": -14.145007133483887,
+      "median": -14.277256965637207
+    },
+    "effective_log_var": {
+      "min": -14.94990062713623,
+      "max": -8.707985877990723,
+      "mean": -14.145007133483887,
+      "median": -14.277256965637207
+    },
+    "aleatoric_sigma_member0": {
+      "min": 0.0005671139224432409,
+      "max": 0.012855378910899162,
+      "mean": 0.0008755338494665921,
+      "median": 0.0007938401540741324
+    },
+    "predictive_sigma_ensemble": {
+      "min": 0.0011082843503776463,
+      "max": 0.11204567073508379,
+      "mean": 0.0017215919946839994
+    },
+    "rmse": 0.0011280850740149617,
+    "mean_abs_error": 0.0009456892148591578,
+    "sigma_over_mean_abs_error_predictive": 1.8204627562982172,
+    "fraction_lower_saturated": 0.0,
+    "fraction_upper_saturated": 0.0,
+    "exp_of_mean_raw_logvar_over_2": 0.0008481071561747424,
+    "sqrt_of_mean_aleatoric_variance": 0.0009149588295258582,
+    "note": "exp(mean(x)/2) != sqrt(mean(exp(x))) by Jensen's inequality -- these are expected to differ; that is not a bug."
+  },
+  "2": {
+    "raw_log_var": {
+      "min": -14.454724311828613,
+      "max": -7.784115791320801,
+      "mean": -13.6255521774292,
+      "median": -13.777326583862305
+    },
+    "effective_log_var": {
+      "min": -14.454724311828613,
+      "max": -7.784115791320801,
+      "mean": -13.6255521774292,
+      "median": -13.777326583862305
+    },
+    "aleatoric_sigma_member0": {
+      "min": 0.0007264345767907798,
+      "max": 0.020403314381837845,
+      "mean": 0.0011469636810943484,
+      "median": 0.0010192756308242679
+    },
+    "predictive_sigma_ensemble": {
+      "min": 0.0009281314346425744,
+      "max": 0.15198221176654933,
+      "mean": 0.0015761060816570085
+    },
+    "rmse": 0.0016399528831243515,
+    "mean_abs_error": 0.0014991387724876404,
+    "sigma_over_mean_abs_error_predictive": 1.0513410169771342,
+    "fraction_lower_saturated": 0.0,
+    "fraction_upper_saturated": 0.0,
+    "exp_of_mean_raw_logvar_over_2": 0.001099635971757627,
+    "sqrt_of_mean_aleatoric_variance": 0.0012158930767327547,
+    "note": "exp(mean(x)/2) != sqrt(mean(exp(x))) by Jensen's inequality -- these are expected to differ; that is not a bug."
+  },
+  "3": {
+    "raw_log_var": {
+      "min": -13.010499954223633,
+      "max": -7.656861782073975,
+      "mean": -12.318119049072266,
+      "median": -12.393723487854004
+    },
+    "effective_log_var": {
+      "min": -13.010499954223633,
+      "max": -7.656861782073975,
+      "mean": -12.318119049072266,
+      "median": -12.393723487854004
+    },
+    "aleatoric_sigma_member0": {
+      "min": 0.0014955669175833464,
+      "max": 0.021743707358837128,
+      "mean": 0.002158676041290164,
+      "median": 0.0020358096808195114
+    },
+    "predictive_sigma_ensemble": {
+      "min": 0.0013300580280326357,
+      "max": 0.11419880054467992,
+      "mean": 0.002048863073650507
+    },
+    "rmse": 0.0010923483641818166,
+    "mean_abs_error": 0.0009263415704481304,
+    "sigma_over_mean_abs_error_predictive": 2.211779260493882,
+    "fraction_lower_saturated": 0.0,
+    "fraction_upper_saturated": 0.0,
+    "exp_of_mean_raw_logvar_over_2": 0.0021142407285389417,
+    "sqrt_of_mean_aleatoric_variance": 0.0022139837965369225,
+    "note": "exp(mean(x)/2) != sqrt(mean(exp(x))) by Jensen's inequality -- these are expected to differ; that is not a bug."
+  },
+  "4": {
+    "raw_log_var": {
+      "min": -14.149750709533691,
+      "max": -5.879063606262207,
+      "mean": -13.130204200744629,
+      "median": -13.400968551635742
+    },
+    "effective_log_var": {
+      "min": -14.149750709533691,
+      "max": -5.879063606262207,
+      "mean": -13.130204200744629,
+      "median": -13.400968551635742
+    },
+    "aleatoric_sigma_member0": {
+      "min": 0.000846098002512008,
+      "max": 0.052890487015247345,
+      "mean": 0.00160844752099365,
+      "median": 0.0012303160037845373
+    },
+    "predictive_sigma_ensemble": {
+      "min": 0.001157254524309543,
+      "max": 0.2547445716156676,
+      "mean": 0.0022736803281402994
+    },
+    "rmse": 0.0021422167774289846,
+    "mean_abs_error": 0.001593580818735063,
+    "sigma_over_mean_abs_error_predictive": 1.4267744073030943,
+    "fraction_lower_saturated": 0.0,
+    "fraction_upper_saturated": 0.0,
+    "exp_of_mean_raw_logvar_over_2": 0.0014086801167986342,
+    "sqrt_of_mean_aleatoric_variance": 0.0020852789748460054,
+    "note": "exp(mean(x)/2) != sqrt(mean(exp(x))) by Jensen's inequality -- these are expected to differ; that is not a bug."
+  },
+  "5": {
+    "raw_log_var": {
+      "min": -13.325713157653809,
+      "max": 3.421882390975952,
+      "mean": -11.09533977508545,
+      "median": -11.798964500427246
+    },
+    "effective_log_var": {
+      "min": -13.325713157653809,
+      "max": 2.0,
+      "mean": -11.095407485961914,
+      "median": -11.798964500427246
+    },
+    "aleatoric_sigma_member0": {
+      "min": 0.0012774919159710407,
+      "max": 2.7182817459106445,
+      "mean": 0.009773344732820988,
+      "median": 0.002740863710641861
+    },
+    "predictive_sigma_ensemble": {
+      "min": 0.0020118823241471635,
+      "max": 2.479784091336083,
+      "mean": 0.012378025302239144
+    },
+    "rmse": 0.031588807702064514,
+    "mean_abs_error": 0.007789327297359705,
+    "sigma_over_mean_abs_error_predictive": 1.5891006796485287,
+    "fraction_lower_saturated": 0.0,
+    "fraction_upper_saturated": 6e-05,
+    "exp_of_mean_raw_logvar_over_2": 0.0038965260175548204,
+    "sqrt_of_mean_aleatoric_variance": 0.04872971773147583,
+    "note": "exp(mean(x)/2) != sqrt(mean(exp(x))) by Jensen's inequality -- these are expected to differ; that is not a bug."
+  },
+  "6": {
+    "raw_log_var": {
+      "min": -13.53941822052002,
+      "max": 7.606777667999268,
+      "mean": -10.998207092285156,
+      "median": -12.004411697387695
+    },
+    "effective_log_var": {
+      "min": -13.53941822052002,
+      "max": 2.0,
+      "mean": -10.998550415039062,
+      "median": -12.004411697387695
+    },
+    "aleatoric_sigma_member0": {
+      "min": 0.0011480285320430994,
+      "max": 2.7182817459106445,
+      "mean": 0.015187546610832214,
+      "median": 0.0024732910096645355
+    },
+    "predictive_sigma_ensemble": {
+      "min": 0.002746090288336226,
+      "max": 2.567204316256207,
+      "mean": 0.020507497641931192
+    },
+    "rmse": 0.052868302911520004,
+    "mean_abs_error": 0.011859806254506111,
+    "sigma_over_mean_abs_error_predictive": 1.7291595833734137,
+    "fraction_lower_saturated": 0.0,
+    "fraction_upper_saturated": 0.00018,
+    "exp_of_mean_raw_logvar_over_2": 0.004090436683100367,
+    "sqrt_of_mean_aleatoric_variance": 0.07738783210515976,
+    "note": "exp(mean(x)/2) != sqrt(mean(exp(x))) by Jensen's inequality -- these are expected to differ; that is not a bug."
+  },
+  "7": {
+    "raw_log_var": {
+      "min": -11.350430488586426,
+      "max": 5.262455463409424,
+      "mean": -8.659029960632324,
+      "median": -9.461095809936523
+    },
+    "effective_log_var": {
+      "min": -11.350430488586426,
+      "max": 2.0,
+      "mean": -8.659371376037598,
+      "median": -9.461095809936523
+    },
+    "aleatoric_sigma_member0": {
+      "min": 0.003429930657148361,
+      "max": 2.7182817459106445,
+      "mean": 0.03745367005467415,
+      "median": 0.008821634575724602
+    },
+    "predictive_sigma_ensemble": {
+      "min": 0.005200225486389395,
+      "max": 2.7193132523827046,
+      "mean": 0.04523975390426253
+    },
+    "rmse": 0.09533563256263733,
+    "mean_abs_error": 0.03006918914616108,
+    "sigma_over_mean_abs_error_predictive": 1.504521910596258,
+    "fraction_lower_saturated": 0.0,
+    "fraction_upper_saturated": 0.00072,
+    "exp_of_mean_raw_logvar_over_2": 0.013173935558844628,
+    "sqrt_of_mean_aleatoric_variance": 0.1345401555299759,
+    "note": "exp(mean(x)/2) != sqrt(mean(exp(x))) by Jensen's inequality -- these are expected to differ; that is not a bug."
+  },
+  "8": {
+    "raw_log_var": {
+      "min": -11.31208324432373,
+      "max": 5.077984809875488,
+      "mean": -9.045817375183105,
+      "median": -9.622315406799316
+    },
+    "effective_log_var": {
+      "min": -11.31208324432373,
+      "max": 2.0,
+      "mean": -9.046810150146484,
+      "median": -9.622315406799316
+    },
+    "aleatoric_sigma_member0": {
+      "min": 0.0034963293001055717,
+      "max": 2.7182817459106445,
+      "mean": 0.026412466540932655,
+      "median": 0.008138432167470455
+    },
+    "predictive_sigma_ensemble": {
+      "min": 0.004831494967270736,
+      "max": 2.6820052848899842,
+      "mean": 0.02952143082068433
+    },
+    "rmse": 0.07557301968336105,
+    "mean_abs_error": 0.020925968885421753,
+    "sigma_over_mean_abs_error_predictive": 1.4107557448033232,
+    "fraction_lower_saturated": 0.0,
+    "fraction_upper_saturated": 0.00152,
+    "exp_of_mean_raw_logvar_over_2": 0.010857396918990684,
+    "sqrt_of_mean_aleatoric_variance": 0.13253188133239746,
+    "note": "exp(mean(x)/2) != sqrt(mean(exp(x))) by Jensen's inequality -- these are expected to differ; that is not a bug."
+  },
+  "9": {
+    "raw_log_var": {
+      "min": -11.313529014587402,
+      "max": 4.826886177062988,
+      "mean": -8.8096923828125,
+      "median": -9.620462417602539
+    },
+    "effective_log_var": {
+      "min": -11.313529014587402,
+      "max": 2.0,
+      "mean": -8.810115814208984,
+      "median": -9.620462417602539
+    },
+    "aleatoric_sigma_member0": {
+      "min": 0.0034938028547912836,
+      "max": 2.7182817459106445,
+      "mean": 0.03858267515897751,
+      "median": 0.008145978674292564
+    },
+    "predictive_sigma_ensemble": {
+      "min": 0.005878702207751948,
+      "max": 2.7293329910854447,
+      "mean": 0.04997694254900344
+    },
+    "rmse": 0.1081819161772728,
+    "mean_abs_error": 0.029919663444161415,
+    "sigma_over_mean_abs_error_predictive": 1.6703711471312037,
+    "fraction_lower_saturated": 0.0,
+    "fraction_upper_saturated": 0.00108,
+    "exp_of_mean_raw_logvar_over_2": 0.012217985501498276,
+    "sqrt_of_mean_aleatoric_variance": 0.14522674679756165,
+    "note": "exp(mean(x)/2) != sqrt(mean(exp(x))) by Jensen's inequality -- these are expected to differ; that is not a bug."
+  },
+  "10": {
+    "raw_log_var": {
+      "min": -10.765125274658203,
+      "max": 8.701634407043457,
+      "mean": -6.8656511306762695,
+      "median": -7.231422424316406
+    },
+    "effective_log_var": {
+      "min": -10.765125274658203,
+      "max": 2.0,
+      "mean": -6.871807098388672,
+      "median": -7.231422424316406
+    },
+    "aleatoric_sigma_member0": {
+      "min": 0.004596028942614794,
+      "max": 2.7182817459106445,
+      "mean": 0.11729051917791367,
+      "median": 0.02689778432250023
+    },
+    "predictive_sigma_ensemble": {
+      "min": 0.010602315434870448,
+      "max": 3.1321742738083604,
+      "mean": 0.16292682982945916
+    },
+    "rmse": 0.3055085241794586,
+    "mean_abs_error": 0.0916329175233841,
+    "sigma_over_mean_abs_error_predictive": 1.7780382228676868,
+    "fraction_lower_saturated": 0.0,
+    "fraction_upper_saturated": 0.00984,
+    "exp_of_mean_raw_logvar_over_2": 0.03229555851971274,
+    "sqrt_of_mean_aleatoric_variance": 0.34945276379585266,
+    "note": "exp(mean(x)/2) != sqrt(mean(exp(x))) by Jensen's inequality -- these are expected to differ; that is not a bug."
+  }
+}
