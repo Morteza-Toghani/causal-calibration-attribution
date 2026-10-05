@@ -44,7 +44,7 @@ The aim is not simply to compare which condition has the largest error. The aim 
 
 ## Study Design
 
-The basic unit of comparison is a matched model–evaluation instance.
+The basic unit of comparison is a matched model-evaluation instance.
 
 The same trained model is evaluated under a baseline condition and under a controlled intervention. Wherever possible, the same evaluation states and reusable sources of randomness are retained across the paired conditions.
 
@@ -92,7 +92,7 @@ The baseline design is a small ensemble of multilayer perceptrons trained on off
 
 * MLP-based probabilistic predictors
 * **5 ensemble members**
-* Next-state prediction
+* Next-state prediction (1-step)
 * Gaussian predictive distributions
 * Ensemble-based uncertainty estimation
 
@@ -131,13 +131,13 @@ The main outcome is a **regression-specific calibration error** appropriate for 
 The evaluation also considers:
 
 * **Negative Log-Likelihood (NLL)**
-* **Prediction-interval coverage**
+* **Prediction-interval coverage** (at nominal 50% and 90%)
 * **Sharpness**
 * **CRPS**
 * Predictive uncertainty
 * Ensemble disagreement
 * Calibration curves
-* Error–uncertainty relationships
+* Error-uncertainty relationships
 
 Calibration and sharpness are treated as complementary properties. A useful uncertainty estimate should not only be statistically aligned with observed outcomes, but should also remain informative rather than unnecessarily broad.
 
@@ -151,9 +151,9 @@ The comparison is designed around paired observations and repeated model instanc
 
 The planned analysis includes:
 
-* paired differences
+* paired differences (ATE)
 * bootstrap confidence intervals
-* paired permutation tests
+* paired permutation / sign-flip tests
 * effect sizes
 * multi-seed evaluation
 * Holm correction for multiple comparisons
@@ -168,11 +168,11 @@ The current design recommends multiple matched training seeds, with the exact nu
 
 > **Status: IN DESIGN / PILOT PHASE**
 
-The research question and experimental protocol are defined, while the implementation and validation of the full pipeline are still in progress.
+The research question and experimental protocol are defined. The implementation is partially complete, and the full pipeline (real data, multi-seed, mechanism-specific interventions, CRN-paired evaluation) is still in progress.
 
 The project follows an evidence-based maturity model:
 
-`IN DESIGN → PROTOTYPE → PRELIMINARY → VALIDATED → REPRODUCIBLE`
+`IN DESIGN -> PROTOTYPE -> PRELIMINARY -> VALIDATED -> REPRODUCIBLE`
 
 These labels are intended to reflect the actual state of the work. A running script is not treated as validated evidence.
 
@@ -180,115 +180,78 @@ No final empirical claim is reported in this repository until the corresponding 
 
 ---
 
-## Results
-
-Results will be added here as the experimental work develops.
-
-For each reported result, the intended traceability is:
-
-**Research Question → Hypothesis → Intervention → Configuration → Experiment → Statistical Analysis → Result**
-
-No placeholder numbers or illustrative plots will be presented as empirical findings.
-
-This is especially important for a research repository: every reported number should be recoverable from the corresponding code and configuration.
-
----
-
-## Limitations
-
-There are several limitations that are part of the current research design.
-
-First, the experiments are controlled simulations. They are intended to study mechanism-specific effects under a defined experimental setup, not to establish real-world causal effects directly.
-
-Second, the interpretation of the policy intervention depends on the fixed probe-state design used in the primary analysis.
-
-Third, calibration behaviour can vary with the environment, dataset, model architecture, and random seed.
-
-Finally, matching the severity of different shift mechanisms is itself a methodological issue. An apparent difference between mechanisms can be misleading if one intervention simply produces a stronger distributional change than another. The experiment therefore treats intervention severity and its definition as an explicit part of the protocol.
-
----
-
-## Reproducibility
-
-Reproducibility is treated as part of the experimental design rather than as a final cleanup step.
-
-Each experiment should record:
-
-* dataset and version
-* environment
-* model configuration
-* training seed
-* evaluation seed
-* shift mechanism
-* intervention severity
-* output location
-
-The intention is that a reported result can be traced back to a specific configuration and rerun without relying on undocumented manual steps.
-
-Raw datasets are not committed to Git. The repository stores manifests and metadata instead.
-
----
-
 ## Repository Structure
 
 ```text
 causal-calibration-attribution/
-│
-├── README.md
-├── LICENSE
-├── CITATION.cff
-├── requirements.txt
-├── environment.yml
-│
-├── configs/
-│   ├── model/
-│   ├── shift/
-│   └── experiment/
-│
-├── data/
-│   └── manifests/
-│
-├── src/
-│   ├── envs/
-│   ├── models/
-│   ├── shifts/
-│   ├── metrics/
-│   ├── causal/
-│   └── stats/
-│
-├── experiments/
-│
-├── results/
-│   ├── figures/
-│   ├── tables/
-│   └── logs/
-│
-├── notebooks/
-│
-├── docs/
-│   ├── research_questions.md
-│   ├── methodology.md
-│   ├── counterfactual_design.md
-│   ├── causal_assumptions.md
-│   ├── limitations.md
-│   └── related_work.md
-│
-└── tests/
+|
+|-- README.md
+|-- LICENSE
+|-- CITATION.cff
+|-- requirements.txt
+|-- environment.yml
+|-- pyproject.toml
+|
+|-- configs/
+|   |-- model/
+|   |-- shift/
+|   +-- experiment/
+|
+|-- data/
+|   +-- manifests/
+|
+|-- src/
+|   |-- data/
+|   |-- model/
+|   |-- calibration/
+|   |-- interventions/
+|   |-- causal/
+|   +-- stats/
+|
+|-- experiments/
+|   |-- diagnostics/
+|   |-- pilot/
+|   |-- phase_A_baseline_calibration/
+|   +-- phase_B_mechanism_interventions/
+|
+|-- results/
+|   |-- raw/
+|   |-- tables/
+|   +-- figures/
+|
+|-- notebooks/
+|
+|-- docs/
+|   |-- research_questions.md
+|   |-- methodology.md
+|   |-- counterfactual_design.md
+|   |-- causal_assumptions.md
+|   |-- limitations.md
+|   |-- status.md
+|   |-- decision-log.md
+|   |-- evidence-map.md
+|   |-- negative-results.md
+|   |-- provenance.md
+|   +-- related_work.md
+|
+|-- scripts/
++-- tests/
 ```
 
 The main directories have distinct roles:
 
-* `models/` contains the probabilistic world-model implementation.
-* `shifts/` contains the dynamics, observation, and policy interventions.
-* `metrics/` contains calibration and uncertainty metrics.
-* `causal/` contains the counterfactual and causal-analysis layer.
-* `stats/` contains effect estimation and statistical inference.
+* `src/data/` contains dataset loading and episode-level splitting.
+* `src/model/` contains the probabilistic world-model implementation.
+* `src/calibration/` contains calibration and uncertainty metrics.
+* `src/interventions/` contains the dynamics, observation, and policy interventions.
+* `src/causal/` contains the counterfactual and causal-analysis layer.
+* `src/stats/` contains effect estimation and statistical inference.
 * `experiments/` contains experiment definitions and execution scripts.
-* `results/` contains figures, tables, logs, and machine-readable outputs.
+* `results/` contains figures, tables, and machine-readable outputs.
 * `docs/` contains the methodological documentation.
 * `tests/` contains implementation and statistical checks.
 
-The causal layer is kept explicit because causal attribution is part of the scientific method of the thesis, not an analysis hidden inside a notebook. The planned repository architecture follows the same principle.
+The causal layer is kept explicit because causal attribution is part of the scientific method of the thesis, not an analysis hidden inside a notebook.
 
 ---
 
