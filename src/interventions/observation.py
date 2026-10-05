@@ -1,35 +1,41 @@
-"""Observation shift: additive Gaussian corruption with reusable base noise.
+"""Observation intervention — FROZEN pipeline semantics.
 
-``o' = o + noise_fraction * reference_scale * eps`` with ``eps ~ N(0, I)``.
+Matches Paper1 pipeline lines 1038-1050:
 
-Common random numbers: ``eps`` is drawn ONCE (``draw_base_noise``) and reused for
-every intensity, so a high-intensity condition is an exact rescaling of the
-low-intensity perturbation.
+    obs_scale = np.std(test_obs, axis=0).astype(np.float32)
+    rng = np.random.default_rng(5000 + seed_idx)
+    for level, noise_level in (('low', 0.05), ('high', 0.10)):
+        z = rng.standard_normal(size=test_obs.shape).astype(np.float32)
+        eps = z * (obs_scale + 1e-6) * float(noise_level)
+        # eps added to obs via predict_ensemble(observation_noise=eps)
 
-OPEN ITEM: ``reference_scale`` (e.g. per-dimension std of the training
-observations) must be checked against the original experiment code before any
-number produced by this function is compared with ``results/raw``.
+The intervention is applied to the *input* observation only;
+the target y_true is unchanged.
 """
-
 from __future__ import annotations
 
 import numpy as np
 
 
-def draw_base_noise(shape: tuple[int, ...], seed: int) -> np.ndarray:
-    """Standard-normal base noise, fully determined by ``seed``."""
-    return np.random.default_rng(seed).standard_normal(shape)
+def compute_obs_scale(test_obs: np.ndarray) -> np.ndarray:
+    """Reference scale = per-dim std of the test set."""
+    return np.std(test_obs, axis=0).astype(np.float32)
 
 
-def apply_observation_shift(
-    obs: np.ndarray,
-    base_noise: np.ndarray,
+def make_observation_noise(
+    obs_shape: tuple,
+    obs_scale: np.ndarray,
     noise_fraction: float,
-    reference_scale: np.ndarray | float,
+    rng: np.random.Generator,
 ) -> np.ndarray:
-    obs = np.asarray(obs, dtype=float)
-    if base_noise.shape != obs.shape:
-        raise ValueError(f"base_noise {base_noise.shape} must match obs {obs.shape}")
-    if noise_fraction < 0:
-        raise ValueError("noise_fraction must be >= 0")
-    return obs + noise_fraction * np.asarray(reference_scale, dtype=float) * base_noise
+    """Return eps of shape obs_shape to be added to observations.
+
+    eps ~ Normal(0, (obs_scale + 1e-6) * noise_fraction)
+    """
+    z = rng.standard_normal(size=obs_shape).astype(np.float32)
+    return z * (obs_scale + 1e-6) * float(noise_fraction)
+
+
+def apply_observation_noise(obs: np.ndarray, eps: np.ndarray) -> np.ndarray:
+    """Additive intervention on input observations."""
+    return (obs + eps).astype(np.float32)
