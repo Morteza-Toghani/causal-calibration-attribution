@@ -1,0 +1,11 @@
+phase: B
+name: mechanism_interventions
+question: How does calibration change under dynamics, observation and policy shift (low/high)?
+environment: Hopper-v5
+seeds: [0, 1, 2, 3, 4]
+conditions: [baseline, dynamics_low, dynamics_high, observation_low, observation_high, policy_low, policy_high]
+shift_configs: [configs/shift/dynamics.yaml, configs/shift/observation.yaml, configs/shift/policy.yaml]
+raw_results: results/raw/hopper_seeds_0_4
+analysis_command: python scripts/analyze_results.py
+inference_unit: seed
+status: PRELIMINARY

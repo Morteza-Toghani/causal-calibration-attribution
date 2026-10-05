@@ -1,26 +1,39 @@
-# Model checkpoints and large artifacts
+﻿# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+.coverage
+
+# ---------- Virtual environments ----------
+.venv/
+venv/
+
+# ---------- Data (anchored — code not affected) ----------
+/data/raw/
+/data/processed/
+!/data/processed/*/manifest.json
+
+# ---------- Models ----------
 *.pt
 *.pth
 *.ckpt
-
-# Training outputs
-checkpoints/
 results/models/
 
-# Processed data (regenerable from loader.py, keep manifest.json only)
-data/processed/*/*.npz
+# ---------- Processed artifacts ----------
+*.npz
 
-# Local environments
-.venv/
-venv/
-__pycache__/
-*.py[cod]
+# ---------- Backups and temp ----------
+*.bak
+*.bak2
+*.swp
 
-# Experiment caches
-.cache/
-
-# OS files
+# ---------- OS ----------
 .DS_Store
 Thumbs.db
 
-data/processed/
+# ---------- Logs ----------
+*.log

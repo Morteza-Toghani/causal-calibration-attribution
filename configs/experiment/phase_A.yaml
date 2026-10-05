@@ -1,0 +1,14 @@
+phase: A
+name: baseline_calibration
+question: Is the baseline ensemble calibrated before any shift is applied?
+environment: Hopper-v5
+dataset: mujoco/hopper/medium-v0      # Minari
+splits:                               # episode-level; counts from the project report
+  train:       {episodes: 929, transitions: 707430}
+  development: {episodes: 199, transitions: 145922}
+  test:        {episodes: 133, transitions: 97432}
+  probe:       {episodes: 66,  transitions: 48620}
+model_config: configs/model/mlp_ensemble.yaml
+seeds: [0, 1, 2, 3, 4]
+metrics: [calibration_error, nll, coverage_50, coverage_90, sharpness_50, sharpness_90, crps]
+status: PRELIMINARY

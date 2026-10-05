@@ -1,0 +1,8 @@
+mechanism: observation
+description: additive Gaussian corruption of the observation, o' = o + noise_fraction * reference_scale * eps
+intensities:
+  low:  {noise_fraction: 0.05}
+  high: {noise_fraction: 0.10}
+reference_scale: null     # OPEN: verify against original experiment code (see src/interventions/observation.py)
+common_random_numbers: true
+n_pairs_reported: 25000   # from results/raw (Hopper)

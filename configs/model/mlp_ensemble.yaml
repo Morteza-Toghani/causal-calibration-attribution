@@ -1,0 +1,21 @@
+# World-model configuration. Values below are the ones documented in the project
+# report (Sept 2026). Anything not documented there is deliberately left out
+# (hidden sizes, learning rate, batch size, ...) until the original training
+# code is migrated; do not fill these in from memory.
+model:
+  family: gaussian_mlp_ensemble
+  n_members: 5
+  output: [mean, log_variance]        # per-dimension diagonal Gaussian over s_{t+1}
+  loss: gaussian_nll
+  horizon: 1                          # one-step prediction (primary analysis)
+  max_log_var: 2
+  uncertainty:
+    aleatoric: mean_k(sigma_k^2)
+    epistemic: var_k(mu_k)
+    total: aleatoric + epistemic
+baseline_candidates:                  # explored in Phase A; final baseline NOT yet frozen
+  A: {min_log_var: -10, epochs: 20}
+  B: {min_log_var: -10, epochs: 50}
+  C: {min_log_var: -20, epochs: 20}
+  D: {min_log_var: -20, epochs: 50}
+frozen: false

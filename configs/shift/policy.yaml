@@ -1,0 +1,10 @@
+mechanism: policy
+description: change of the action-selection rule evaluated on a FIXED set of probe states (no free rollout in the primary analysis)
+intensities:
+  low:  0.95
+  high: 0.80
+# Provenance: action_scale values are present in results/raw/hopper_seeds_0_4/seed_00_summary.json
+# and repeated across the five seed summaries. The policy rule itself remains undocumented.
+probe_states: fixed_before_action_sampling
+n_pairs_reported: 10000   # from results/raw (Hopper)
+implementation: not_in_repository

@@ -1,12 +1,14 @@
-numpy
-pandas
-scipy
-matplotlib
-pyyaml
+﻿# ---------- Core scientific ----------
+numpy>=1.26
+scipy>=1.11
+pandas>=2.0
+matplotlib>=3.8
+pyyaml>=6.0
 
+# ---------- RL / World Models ----------
 torch
-
 gymnasium[mujoco]
 minari
 
-pytest
+# ---------- Testing ----------
+pytest>=8.0

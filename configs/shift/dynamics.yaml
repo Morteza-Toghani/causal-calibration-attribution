@@ -1,0 +1,9 @@
+mechanism: dynamics
+description: controlled change of simulator transition parameters at inference time; policy and observation unchanged
+intensities:
+  low:  0.95
+  high: 0.80
+# Provenance: values are present in results/raw/hopper_seeds_0_4/seed_00_summary.json
+# and repeated across the five seed summaries. They are copied here without inference.
+n_pairs_reported: 5000    # from results/raw (Hopper)
+implementation: not_in_repository

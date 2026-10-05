@@ -1,5 +1,12 @@
 """
 Phase 0 — Environment + Data Smoke Test
+
+Verifies that the core scientific-computing and RL stack required for the
+project (Counterfactual Causal Attribution of Calibration Failure in
+Uncertainty-Aware World Models) is correctly installed and importable.
+
+Run:
+    python scripts/smoke_test.py
 """
 
 import sys
@@ -20,6 +27,7 @@ def check(name, fn):
 
 def check_python():
     v = sys.version_info
+    assert v.major == 3 and v.minor >= 10, f"Python 3.10+ required, found {v.major}.{v.minor}"
     return f"{v.major}.{v.minor}.{v.micro}"
 
 
