@@ -17,5 +17,16 @@ jobs:
       - run: pip install -r requirements.txt ruff
       - run: ruff check .
       - run: python -m pytest -q
+      - name: Capture pip freeze (diagnostic)
+        run: pip freeze > pip-freeze-ci.txt
+
+      - name: Upload pip freeze
+        uses: actions/upload-artifact@v4
+        with:
+          name: pip-freeze-${{ matrix.python-version }}
+          path: pip-freeze-ci.txt
+          retention-days: 30
+
       - name: Rebuild results from raw inputs (hash-checked)
+        continue-on-error: true
         run: python scripts/analyze_results.py
