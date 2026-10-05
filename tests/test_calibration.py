@@ -12,17 +12,10 @@ import numpy as np
 import pytest
 
 from src.calibration.regression import (
-    validate_shapes,
     ensemble_moments,
-    prediction_interval,
-    interval_coverage,
-    interval_sharpness,
-    gaussian_nll,
-    gaussian_crps,
-    calibration_error,
     evaluate_regression_calibration,
+    validate_shapes,
 )
-
 
 # ---------------------------------------------------------------------------
 # 1. Perfectly (near-perfectly) calibrated Gaussian

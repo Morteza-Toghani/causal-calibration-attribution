@@ -24,18 +24,18 @@ train/test distribution-shift artifact (present only on TEST).
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
+from pathlib import Path as _P
 
 import numpy as np
 import torch
 
-import sys
-from pathlib import Path as _P
 sys.path.insert(0, str(_P(__file__).resolve().parents[2]))
 
+from src.calibration.regression import EPS, ensemble_moments, gaussian_nll
 from src.data.loader import TransitionBatch
 from src.model.ensemble import EnsembleWorldModel
-from src.calibration.regression import ensemble_moments, gaussian_nll, EPS
 
 
 @torch.no_grad()
@@ -72,7 +72,7 @@ def diagnose_split(name: str, model: EnsembleWorldModel, batch: TransitionBatch)
     z_mean_abs = float(np.abs(z).mean())
     z_median_abs = float(np.median(np.abs(z)))
 
-    print(f"\n[1] z = (y - mu) / sigma statistics:")
+    print("\n[1] z = (y - mu) / sigma statistics:")
     print(f"    mean(z)      : {z_mean:+.4f}")
     print(f"    std(z)       : {z_std:.4f}   (target ~1.0)")
     print(f"    mean(|z|)    : {z_mean_abs:.4f}")
@@ -84,7 +84,7 @@ def diagnose_split(name: str, model: EnsembleWorldModel, batch: TransitionBatch)
     mean_sigma_per_dim = sigma.mean(axis=0)
     ratio_per_dim = mean_sigma_per_dim / np.maximum(rmse_per_dim, EPS)
 
-    print(f"\n[2] RMSE vs. mean predicted sigma, per dimension:")
+    print("\n[2] RMSE vs. mean predicted sigma, per dimension:")
     print(f"    {'dim':>4} {'RMSE':>10} {'mean_sigma':>12} {'ratio':>8}")
     for d in range(y_true.shape[1]):
         print(f"    {d:>4} {rmse_per_dim[d]:>10.5f} {mean_sigma_per_dim[d]:>12.5f} {ratio_per_dim[d]:>8.3f}")
@@ -99,7 +99,7 @@ def diagnose_split(name: str, model: EnsembleWorldModel, batch: TransitionBatch)
     mean_total = float(variance.mean())
     frac_aleatoric = mean_aleatoric / mean_total if mean_total > 0 else float("nan")
 
-    print(f"\n[3] Aleatoric vs. epistemic variance:")
+    print("\n[3] Aleatoric vs. epistemic variance:")
     print(f"    mean aleatoric : {mean_aleatoric:.6f}  ({frac_aleatoric:.1%})")
     print(f"    mean epistemic : {mean_epistemic:.6f}  ({1-frac_aleatoric:.1%})")
     print(f"    mean total     : {mean_total:.6f}")
@@ -161,7 +161,7 @@ def diagnostic_5_forward_pass_trace(model: EnsembleWorldModel):
     mu_match = torch.allclose(manual_mu, module_mu, atol=1e-6)
     sigma2_match = torch.allclose(manual_sigma2, module_sigma2, atol=1e-6)
 
-    print(f"  Manual trace: mu_head output (delta) -> mu = obs + delta")
+    print("  Manual trace: mu_head output (delta) -> mu = obs + delta")
     print(f"  Manual trace: log_var_head output -> clamp[{member.min_log_var}, {member.max_log_var}] -> exp -> sigma^2")
     print(f"  manual mu     == module mu     : {mu_match}")
     print(f"  manual sigma^2 == module sigma^2: {sigma2_match}")
@@ -170,9 +170,9 @@ def diagnostic_5_forward_pass_trace(model: EnsembleWorldModel):
           f"a log_var near the UPPER bound {member.max_log_var} would force sigma^2 "
           f"toward exp({member.max_log_var})={np.exp(member.max_log_var):.2f}, which "
           f"could itself cause over-dispersion if training pushes log_var to saturate.)")
-    print(f"  --> No sigma/variance/log-sigma/log-variance mix-up found: the module's")
-    print(f"      forward() exactly matches the hand-traced formula (mu=obs+delta,")
-    print(f"      sigma^2=exp(clamp(log_var_head(h)))).")
+    print("  --> No sigma/variance/log-sigma/log-variance mix-up found: the module's")
+    print("      forward() exactly matches the hand-traced formula (mu=obs+delta,")
+    print("      sigma^2=exp(clamp(log_var_head(h)))).")
 
     return {
         "mu_matches_manual_trace": bool(mu_match),

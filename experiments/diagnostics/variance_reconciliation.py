@@ -16,18 +16,18 @@ was not checked in the previous (upper-clamp-only) diagnostic.
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
+from pathlib import Path as _P
 
 import numpy as np
 import torch
 
-import sys
-from pathlib import Path as _P
 sys.path.insert(0, str(_P(__file__).resolve().parents[2]))
 
+from src.calibration.regression import ensemble_moments
 from src.data.loader import TransitionBatch
 from src.model.ensemble import EnsembleWorldModel
-from src.calibration.regression import ensemble_moments
 
 
 @torch.no_grad()

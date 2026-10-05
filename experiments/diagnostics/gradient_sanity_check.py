@@ -26,13 +26,13 @@ dynamics question) or something else.
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
+from pathlib import Path as _P
 
 import numpy as np
 import torch
 
-import sys
-from pathlib import Path as _P
 sys.path.insert(0, str(_P(__file__).resolve().parents[2]))
 
 from src.data.loader import TransitionBatch
@@ -83,14 +83,14 @@ def analytical_gradient_test():
             "matches_theory": bool(np.isclose(grad, expected_grad, atol=1e-4)),
         }
 
-    print(f"\n  SUMMARY: for small errors (A, B), gradient descent should DECREASE")
-    print(f"  log_var (tighten). For large errors (D), it should INCREASE log_var")
-    print(f"  (widen). This is textbook Gaussian NLL behavior and our autograd")
-    print(f"  computation matches theory exactly.")
-    print(f"  --> CONCLUSION: the raw math of Gaussian NLL w.r.t. log_var is CORRECT.")
-    print(f"      If real data (dims 0-4) still saturates log_var near +2 despite")
-    print(f"      tiny errors, the gradient math itself is not the cause -- we must")
-    print(f"      look at the actual forward pass on real data (Test 2 below).")
+    print("\n  SUMMARY: for small errors (A, B), gradient descent should DECREASE")
+    print("  log_var (tighten). For large errors (D), it should INCREASE log_var")
+    print("  (widen). This is textbook Gaussian NLL behavior and our autograd")
+    print("  computation matches theory exactly.")
+    print("  --> CONCLUSION: the raw math of Gaussian NLL w.r.t. log_var is CORRECT.")
+    print("      If real data (dims 0-4) still saturates log_var near +2 despite")
+    print("      tiny errors, the gradient math itself is not the cause -- we must")
+    print("      look at the actual forward pass on real data (Test 2 below).")
 
     return results
 
@@ -141,17 +141,17 @@ def empirical_raw_logvar_inspection(model: EnsembleWorldModel, obs, action, next
     print(f"\n  Overall fraction of (sample, dim) pairs with raw_log_var > 2.0: {overall_frac_above:.2%}")
 
     if overall_frac_above > 0.5:
-        print(f"  --> The RAW (pre-clamp) head is genuinely trying to predict")
-        print(f"      log_var > 2.0 for a majority of predictions. The clamp is")
-        print(f"      actively cutting off a value the network 'wants' to produce --")
-        print(f"      training pushed log_var_head's output upward past the clamp")
-        print(f"      ceiling, and it is now stuck there because gradients beyond")
-        print(f"      the clamp boundary do not propagate (torch.clamp has zero")
-        print(f"      gradient outside the clamped region). This IS a real")
-        print(f"      saturation problem caused by the hard clamp, not a sign error.")
+        print("  --> The RAW (pre-clamp) head is genuinely trying to predict")
+        print("      log_var > 2.0 for a majority of predictions. The clamp is")
+        print("      actively cutting off a value the network 'wants' to produce --")
+        print("      training pushed log_var_head's output upward past the clamp")
+        print("      ceiling, and it is now stuck there because gradients beyond")
+        print("      the clamp boundary do not propagate (torch.clamp has zero")
+        print("      gradient outside the clamped region). This IS a real")
+        print("      saturation problem caused by the hard clamp, not a sign error.")
     else:
-        print(f"  --> Raw log_var is mostly within bounds; saturation is isolated")
-        print(f"      to specific samples/dimensions, not a systemic issue.")
+        print("  --> Raw log_var is mostly within bounds; saturation is isolated")
+        print("      to specific samples/dimensions, not a systemic issue.")
 
     return {
         "per_dim": results,

@@ -32,15 +32,14 @@ import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from src.data.loader import TransitionBatch
-from src.model.ensemble import EnsembleWorldModel
 from src.calibration.regression import (
-    calibration_error,
     ensemble_moments,
     evaluate_regression_calibration,
     interval_coverage,
     prediction_interval,
 )
+from src.data.loader import TransitionBatch
+from src.model.ensemble import EnsembleWorldModel
 
 # ----------------------------------------------------------------------------
 # EDIT THIS: checkpoint dirs for each candidate.

@@ -10,18 +10,18 @@ ensemble, evaluated ONLY on the test split (never on calibration/probe).
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
+from pathlib import Path as _P
 
 import numpy as np
 import torch
 
-import sys
-from pathlib import Path as _P
 sys.path.insert(0, str(_P(__file__).resolve().parents[2]))
 
+from src.calibration.regression import evaluate_regression_calibration
 from src.data.loader import TransitionBatch
 from src.model.ensemble import EnsembleWorldModel
-from src.calibration.regression import evaluate_regression_calibration
 
 
 @torch.no_grad()

@@ -38,18 +38,18 @@ and 90% levels). This script produces five diagnostics:
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
+from pathlib import Path as _P
 
 import numpy as np
 import torch
 
-import sys
-from pathlib import Path as _P
 sys.path.insert(0, str(_P(__file__).resolve().parents[2]))
 
+from src.calibration.regression import ensemble_moments
 from src.data.loader import TransitionBatch
 from src.model.ensemble import EnsembleWorldModel
-from src.calibration.regression import ensemble_moments, EPS
 
 
 @torch.no_grad()
@@ -163,7 +163,7 @@ def audit_3_standardized_residuals(y_true, mean, variance):
 
     print(f"  mean(z)  : {z_mean:+.4f}  (should be ~0 if unbiased)")
     print(f"  std(z)   : {z_std:.4f}  (should be ~1 if variance is correctly scaled;")
-    print(f"             values << 1 mean predicted sigma is too LARGE relative to actual errors)")
+    print("             values << 1 mean predicted sigma is too LARGE relative to actual errors)")
     print(f"  P(|z| <= 0.6745) = {frac_within_50:.4f}  (nominal 0.50)")
     print(f"  P(|z| <= 1.6449) = {frac_within_90:.4f}  (nominal 0.90)")
 

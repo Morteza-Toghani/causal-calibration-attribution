@@ -5,7 +5,6 @@ from typing import Iterable
 import numpy as np
 from scipy.stats import norm
 
-
 EPS = 1e-8
 
 
