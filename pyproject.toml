@@ -1,13 +1,11 @@
 [tool.ruff]
 line-length = 120
-target-version = 'py310'
+target-version = "py310"
 
 [tool.ruff.lint]
-select = ['E', 'F', 'I', 'W', 'UP']
-ignore = [
-    'E501',
-]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
 
 [tool.ruff.lint.per-file-ignores]
-'experiments/**/*.py' = ['E402']
-'notebooks/**' = ['E401', 'I001']
+"experiments/**/*.py" = ["E402"]
+"notebooks/**" = ["E401", "I001"]

@@ -125,7 +125,6 @@ def load_and_split(
     n_cal = int(round(calibration_frac * n_episodes))
     n_test = int(round(test_frac * n_episodes))
     # probe gets the remainder to make sure all episodes are used
-    n_probe = n_episodes - n_train - n_cal - n_test
 
     idx_train = perm[:n_train]
     idx_cal = perm[n_train:n_train + n_cal]
