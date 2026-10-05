@@ -1,0 +1,34 @@
+# Ensure LF line endings in the repository for all text files.
+# This is critical for cross-platform reproducibility: files committed from
+# Windows (CRLF) must be checked out with LF on Linux CI so that regenerated
+# outputs are byte-identical to committed outputs.
+
+* text=auto eol=lf
+
+# Binary files — no conversion
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.pt binary
+*.pth binary
+*.ckpt binary
+*.npz binary
+*.zip binary
+
+# Explicit text files
+*.py    text eol=lf
+*.md    text eol=lf
+*.csv   text eol=lf
+*.json  text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+*.toml  text eol=lf
+*.txt   text eol=lf
+*.cff   text eol=lf
+*.ini   text eol=lf
+*.cfg   text eol=lf
+*.sh    text eol=lf
+*.bat   text eol=crlf
+*.ps1   text eol=crlf
