@@ -1,0 +1,117 @@
+{
+  "env": "walker2d",
+  "seed_idx": 3,
+  "member_idx": 3,
+  "member_seed": 303,
+  "split_seed": 1003,
+  "device": "cpu",
+  "torch_version": "2.7.1+cpu",
+  "cpu_count": 12,
+  "threads": 2,
+  "elapsed_seconds": 344.97632670402527,
+  "n_train_transitions": 150000,
+  "obs_dim": 17,
+  "action_dim": 6,
+  "history": [
+    {
+      "epoch": 1,
+      "train_nll": 0.38629450300331447
+    },
+    {
+      "epoch": 2,
+      "train_nll": -0.7344157831603978
+    },
+    {
+      "epoch": 3,
+      "train_nll": -0.9700029504542448
+    },
+    {
+      "epoch": 4,
+      "train_nll": -1.072875587307677
+    },
+    {
+      "epoch": 5,
+      "train_nll": -1.148965893148565
+    },
+    {
+      "epoch": 6,
+      "train_nll": -1.1984719143432825
+    },
+    {
+      "epoch": 7,
+      "train_nll": -1.2517270660724769
+    },
+    {
+      "epoch": 8,
+      "train_nll": -1.2900944064263584
+    },
+    {
+      "epoch": 9,
+      "train_nll": -1.3238021232643906
+    },
+    {
+      "epoch": 10,
+      "train_nll": -1.3479562219308348
+    },
+    {
+      "epoch": 11,
+      "train_nll": -1.3737721954073225
+    },
+    {
+      "epoch": 12,
+      "train_nll": -1.3920523398587492
+    },
+    {
+      "epoch": 13,
+      "train_nll": -1.4083327882143917
+    },
+    {
+      "epoch": 14,
+      "train_nll": -1.4348263505364762
+    },
+    {
+      "epoch": 15,
+      "train_nll": -1.4454830576773403
+    },
+    {
+      "epoch": 16,
+      "train_nll": -1.4639279850486184
+    },
+    {
+      "epoch": 17,
+      "train_nll": -1.4799070220415285
+    },
+    {
+      "epoch": 18,
+      "train_nll": -1.4942786953076213
+    },
+    {
+      "epoch": 19,
+      "train_nll": -1.507147656006067
+    },
+    {
+      "epoch": 20,
+      "train_nll": -1.5167482458815282
+    },
+    {
+      "epoch": 21,
+      "train_nll": -1.5205865368551137
+    },
+    {
+      "epoch": 22,
+      "train_nll": -1.5496131141169542
+    },
+    {
+      "epoch": 23,
+      "train_nll": -1.5536710826718076
+    },
+    {
+      "epoch": 24,
+      "train_nll": -1.5707675129377923
+    },
+    {
+      "epoch": 25,
+      "train_nll": -1.572219435049563
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "env": "walker2d",
+  "dataset_id": "mujoco/walker2d/medium-v0",
+  "seed_idx": 1,
+  "split_seed": 1001,
+  "device": "cpu",
+  "torch_version": "2.7.1+cpu",
+  "hidden": [
+    256,
+    256
+  ],
+  "epochs": 25,
+  "batch_size": 1024,
+  "learning_rate": 0.0003,
+  "weight_decay": 1e-05,
+  "grad_clip_max_norm": 5.0,
+  "logvar_clamp": [
+    -10.0,
+    5.0
+  ],
+  "optimizer": "AdamW",
+  "members": [
+    {
+      "member_idx": 3,
+      "member_seed": 103,
+      "elapsed_seconds": 345.86373376846313,
+      "checkpoint": "results\\ensemble_training\\walker2d\\seed_01\\checkpoints\\ensemble_member_03.pt",
+      "final_train_nll": -1.551051796699057
+    },
+    {
+      "member_idx": 1,
+      "member_seed": 101,
+      "elapsed_seconds": 346.83005261421204,
+      "checkpoint": "results\\ensemble_training\\walker2d\\seed_01\\checkpoints\\ensemble_member_01.pt",
+      "final_train_nll": -1.5741642478371964
+    },
+    {
+      "member_idx": 2,
+      "member_seed": 102,
+      "elapsed_seconds": 346.81079363822937,
+      "checkpoint": "results\\ensemble_training\\walker2d\\seed_01\\checkpoints\\ensemble_member_02.pt",
+      "final_train_nll": -1.5736175313287852
+    },
+    {
+      "member_idx": 4,
+      "member_seed": 104,
+      "elapsed_seconds": 347.38745856285095,
+      "checkpoint": "results\\ensemble_training\\walker2d\\seed_01\\checkpoints\\ensemble_member_04.pt",
+      "final_train_nll": -1.5770130846776118
+    },
+    {
+      "member_idx": 0,
+      "member_seed": 100,
+      "elapsed_seconds": 347.7611162662506,
+      "checkpoint": "results\\ensemble_training\\walker2d\\seed_01\\checkpoints\\ensemble_member_00.pt",
+      "final_train_nll": -1.5732557992545926
+    }
+  ]
+}
