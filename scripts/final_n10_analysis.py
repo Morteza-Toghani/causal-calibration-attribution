@@ -159,7 +159,7 @@ def process_seed(env_name, dataset, seed_idx):
 
 def main():
     all_rows = []
-    for env_name, seeds in (('hopper', range(10)), ('walker2d', range(5))):
+    for env_name, seeds in (('hopper', range(10)), ('walker2d', range(10))):
         print(f'=== {env_name} ===')
         dataset = minari.load_dataset(DATASET_IDS[env_name], download=False)
         for seed_idx in seeds:
