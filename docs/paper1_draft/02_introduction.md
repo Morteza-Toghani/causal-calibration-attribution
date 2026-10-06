@@ -27,7 +27,7 @@ Once the baseline was recalibrated, observation shift was the dominant pathway o
 1. We formulate calibration failure under distribution shift as a mechanism-specific counterfactual attribution problem and implement it as evaluation-time interventions on a fixed trained ensemble, with matched instances and common random numbers.
 2. We identify and quantify a re-simulation bias in MuJoCo-based interventions via a null (identity) control, and remove it by using a re-simulated paired baseline.
 3. We show that the trained ensembles are over-dispersed at every nominal level, and that a single per-seed variance factor fitted on a held-out calibration split changes the ranking of mechanisms.
-4. We report that, after recalibration, observation shift dominates dynamics and policy shift in both Hopper (n = 10 seeds) and Walker2d (n = 5 seeds), with effect sizes and confidence intervals for all twelve environment-by-condition effects.
+4. We report that, after recalibration, observation shift dominates dynamics and policy shift in both Hopper and Walker2d (n = 10 seeds each), with effect sizes and confidence intervals for all twelve environment-by-condition effects.
 5. We provide a reproducible pipeline: the Hopper baseline reproduced the original pipeline's metrics to within 1.2 × 10⁻¹⁶ on five legacy seeds, and all numerical results derive from committed manifests.
 
 ## Scope of claims
