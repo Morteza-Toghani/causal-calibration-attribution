@@ -1,4 +1,4 @@
-﻿"""Alpha sensitivity analysis for Paper 1 recalibrated ATE.
+"""Alpha sensitivity analysis for Paper 1 recalibrated ATE.
 
 Sweeps the variance-scaling factor alpha over a fixed grid and recomputes
 the per-condition ATE as a function of alpha. Directly addresses the

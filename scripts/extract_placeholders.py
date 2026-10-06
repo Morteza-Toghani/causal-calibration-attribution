@@ -1,4 +1,4 @@
-﻿"""Extract [REF: ...], [FILL], [VERIFY], [TODO] placeholders from drafts.
+"""Extract [REF: ...], [FILL], [VERIFY], [TODO] placeholders from drafts.
 
 Outputs:
   docs/paper1_draft/_PLACEHOLDERS.md   (human-readable checklist)
