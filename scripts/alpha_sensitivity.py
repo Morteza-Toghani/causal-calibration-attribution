@@ -267,12 +267,21 @@ def main(envs):
             print(f"  seed {seed_idx}... {time.time() - t_s:.1f}s")
 
     per_seed = pd.DataFrame(all_rows)
-    per_seed.to_csv(out_dir / 'alpha_sensitivity_per_seed.csv', index=False)
-    print(f"\nsaved: {out_dir / 'alpha_sensitivity_per_seed.csv'}")
+    per_seed_path = out_dir / 'alpha_sensitivity_per_seed.csv'
+    summary_path  = out_dir / 'alpha_sensitivity_summary.csv'
+
+    if per_seed_path.exists():
+        old_ps = pd.read_csv(per_seed_path)
+        per_seed = pd.concat([old_ps, per_seed], ignore_index=True)
+        per_seed = per_seed.drop_duplicates(
+            subset=['env','seed','mechanism','intensity','alpha'], keep='last')
+
+    per_seed.to_csv(per_seed_path, index=False)
+    print(f"\nsaved: {per_seed_path}")
 
     summary = summarize(per_seed)
-    summary.to_csv(out_dir / 'alpha_sensitivity_summary.csv', index=False)
-    print(f"saved: {out_dir / 'alpha_sensitivity_summary.csv'}")
+    summary.to_csv(summary_path, index=False)
+    print(f"saved: {summary_path}")
 
     # --- Console preview: ATE at fitted alpha vs at alpha=1.0 ---
     print("\n--- ATE at fitted alpha vs alpha = 1.0 ---")
