@@ -1,6 +1,6 @@
 # 6. Results
 
-Effects are paired ATEs on instance-level regression calibration error. Positive values mean the intervention increased calibration error relative to the paired baseline. Each entry gives the mean over seeds, the sample standard deviation across seeds (after ±), and the 95% Student-$t$ confidence interval. Hopper uses $n = 10$ seeds ($t_{\text{crit}} = 2.262$) and Walker2d uses $n = 5$ seeds ($t_{\text{crit}} = 2.776$). Section 6.4 reports the analysis corrected for re-simulation bias but not recalibrated. Section 6.5 reports the recalibrated analysis, which is the main result.
+Effects are paired ATEs on instance-level regression calibration error. Positive values mean the intervention increased calibration error relative to the paired baseline. Each entry gives the mean over seeds, the sample standard deviation across seeds (after ±), and the 95% Student-$t$ confidence interval. Both environments use $n = 10$ seeds ($t_{\text{crit}} = 2.262$). Section 6.4 reports the analysis corrected for re-simulation bias but not recalibrated. Section 6.5 reports the recalibrated analysis, which is the main result.
 
 ## 6.1 Baseline validation
 
@@ -27,7 +27,7 @@ Table 6.2 reports the null ATE: the paired effect of an identity intervention (m
 | Environment | Dynamics null ATE | Policy null ATE |
 |---|---|---|
 | Hopper (n = 10) | −0.0032 ± 0.0005 | −0.0032 ± 0.0005 |
-| Walker2d (n = 5) | −0.0066 ± 0.0003 | −0.0067 ± 0.0001 |
+| Walker2d (n = 10) | −0.0066 ± 0.0004 | −0.0067 ± 0.0001 |
 
 The null ATE was not zero in either environment. It was small relative to the observation effects but of similar size to some of the dynamics and policy effects reported below (for example, the Hopper `dynamics_low` effect is −0.00244 in the corrected analysis). Without the correction, these effects would have been misattributed to the intervention. All D and P results below use the re-simulated baseline target (Section 4.7.1). The observation intervention was not affected.
 
@@ -46,13 +46,13 @@ Tables 6.3 and 6.4 show effects corrected for re-simulation bias, using the orig
 | policy_low | +0.00341 ± 0.00045 | [+0.00308, +0.00373] |
 | policy_high | +0.00623 ± 0.00193 | [+0.00485, +0.00762] |
 
-**Table 6.4.** Corrected ATE, Walker2d (n = 5, $t_{\text{crit}} = 2.776$).
+**Table 6.4.** Corrected ATE, Walker2d (n = 10, $t_{\text{crit}} = 2.262$).
 
 | Condition | ATE | 95% t-CI |
 |---|---|---|
-| observation_low | −0.09689 ± 0.00691 | [−0.10547, −0.08831] |
-| observation_high | −0.03256 ± 0.00691 | [−0.04114, −0.02397] |
-| dynamics_low | −0.00296 ± 0.00060 | [−0.00370, −0.00222] |
+| observation_low | −0.09810 ± 0.00616 | [−0.10251, −0.09369] |
+| observation_high | −0.03307 ± 0.00631 | [−0.03759, −0.02856] |
+| dynamics_low | −0.00301 ± 0.00046 | [−0.00334, −0.00269] |
 | dynamics_high | −0.02407 ± 0.00105 | [−0.02537, −0.02277] |
 | policy_low | +0.00950 ± 0.00068 | [+0.00865, +0.01035] |
 | policy_high | +0.01940 ± 0.00187 | [+0.01707, +0.02173] |
@@ -74,16 +74,16 @@ Tables 6.5 and 6.6 show the effects after the per-seed variance scaling was appl
 | policy_low | +0.00086 ± 0.00029 | [+0.00065, +0.00106] |
 | policy_high | +0.00247 ± 0.00094 | [+0.00180, +0.00313] |
 
-**Table 6.6.** Recalibrated ATE, Walker2d (n = 5, $\alpha = 0.3725$, $t_{\text{crit}} = 2.776$).
+**Table 6.6.** Recalibrated ATE, Walker2d (n = 10, $\alpha = 0.3743$, $t_{\text{crit}} = 2.262$).
 
 | Condition | ATE | 95% t-CI |
 |---|---|---|
-| observation_low | **+0.07955** ± 0.00453 | [+0.07393, +0.08517] |
-| observation_high | **+0.15449** ± 0.00467 | [+0.14869, +0.16029] |
-| dynamics_low | −0.00166 ± 0.00050 | [−0.00227, −0.00104] |
-| dynamics_high | −0.01111 ± 0.00097 | [−0.01232, −0.00990] |
-| policy_low | +0.00492 ± 0.00079 | [+0.00394, +0.00589] |
-| policy_high | +0.00709 ± 0.00175 | [+0.00492, +0.00926] |
+| observation_low | **+0.07749** ± 0.00393 | [+0.07468, +0.08031] |
+| observation_high | **+0.15268** ± 0.00383 | [+0.14993, +0.15542] |
+| dynamics_low | −0.00178 ± 0.00042 | [−0.00208, −0.00148] |
+| dynamics_high | −0.01194 ± 0.00125 | [−0.01284, −0.01105] |
+| policy_low | +0.00486 ± 0.00071 | [+0.00435, +0.00537] |
+| policy_high | +0.00630 ± 0.00248 | [+0.00452, +0.00807] |
 
 All twelve effects excluded zero at the 95% level. The observation effects were positive in both environments at both severities and larger at high severity. Dynamics effects were negative, and policy effects were positive and small.
 
