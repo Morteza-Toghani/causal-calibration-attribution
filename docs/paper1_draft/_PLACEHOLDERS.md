@@ -1,6 +1,6 @@
 # Placeholder checklist — Paper 1 drafts
 
-Total placeholders: **31**
+Total placeholders: **26**
 
 
 ## REF (26)
@@ -57,16 +57,3 @@ Total placeholders: **31**
       context: We did not use the classification ECE. That metric bins predicted confidences of discrete labels. A continuous regression output has no analogous single confide
 - [ ] **07_discussion.md:25** — `[REF: Yu et al., MOPO; Kidambi et al., MOReL]`
       context: Planners that use ensemble uncertainty as a penalty or as a trust signal assume that stated uncertainty tracks error [REF: Yu et al., MOPO; Kidambi et al., MORe
-
-## VERIFY (5)
-
-- [ ] **04_method.md:25** — `[VERIFY: confirm that the evaluated intervals use a Gaussian with this mean and total variance, rather than quantiles of the member mixture.]`
-      context: Members were trained independently. The ensemble predictive distribution for a given input was summarized by a mean $\mu = \frac{1}{5}\sum_j \mu_j$ and a total 
-- [ ] **04_method.md:31** — `[VERIFY: confirm which of test and probe is used for each of D, O, P in the released code; update this sentence accordingly.]`
-      context: The roles are distinct. The train split fits the network weights and the standardization statistics. The calibration split is used only to fit the recalibration
-- [ ] **04_method.md:43** — `[VERIFY: confirm that it is computed per dimension.]`
-      context: where $f$ is the noise fraction, 0.05 (low) or 0.10 (high). Here `std` is the standard deviation of the test observations. [VERIFY: confirm that it is computed 
-- [ ] **04_method.md:65** — `[VERIFY: confirm that the per-instance aggregation runs over output dimensions in this way.]`
-      context: [VERIFY: confirm that the per-instance aggregation runs over output dimensions in this way.] The instance-level calibration error is
-- [ ] **04_method.md:105** — `[VERIFY: confirm family definition against the analysis code.]`
-      context: For hypothesis tests we used a paired sign-flip permutation test on the seed-level differences. For $n$ seeds, the exact test has $2^n$ equally likely sign assi
