@@ -1,0 +1,117 @@
+{
+  "env": "hopper",
+  "seed_idx": 5,
+  "member_idx": 4,
+  "member_seed": 504,
+  "split_seed": 1005,
+  "device": "cpu",
+  "torch_version": "2.7.1+cpu",
+  "cpu_count": 12,
+  "threads": 2,
+  "elapsed_seconds": 336.62773752212524,
+  "n_train_transitions": 150000,
+  "obs_dim": 11,
+  "action_dim": 3,
+  "history": [
+    {
+      "epoch": 1,
+      "train_nll": -0.1050924650412433
+    },
+    {
+      "epoch": 2,
+      "train_nll": -1.358216625492589
+    },
+    {
+      "epoch": 3,
+      "train_nll": -1.562574258466967
+    },
+    {
+      "epoch": 4,
+      "train_nll": -1.6757234107880365
+    },
+    {
+      "epoch": 5,
+      "train_nll": -1.7576610920380573
+    },
+    {
+      "epoch": 6,
+      "train_nll": -1.8121313010754228
+    },
+    {
+      "epoch": 7,
+      "train_nll": -1.8661481661050499
+    },
+    {
+      "epoch": 8,
+      "train_nll": -1.9158634442050442
+    },
+    {
+      "epoch": 9,
+      "train_nll": -1.9360228712055958
+    },
+    {
+      "epoch": 10,
+      "train_nll": -1.984952214623795
+    },
+    {
+      "epoch": 11,
+      "train_nll": -2.0133189400848077
+    },
+    {
+      "epoch": 12,
+      "train_nll": -2.0432957224294443
+    },
+    {
+      "epoch": 13,
+      "train_nll": -2.0670352833611623
+    },
+    {
+      "epoch": 14,
+      "train_nll": -2.1066348552703857
+    },
+    {
+      "epoch": 15,
+      "train_nll": -2.1166054894324065
+    },
+    {
+      "epoch": 16,
+      "train_nll": -2.138614449371286
+    },
+    {
+      "epoch": 17,
+      "train_nll": -2.181240222891983
+    },
+    {
+      "epoch": 18,
+      "train_nll": -2.1933754122987086
+    },
+    {
+      "epoch": 19,
+      "train_nll": -2.206500755686338
+    },
+    {
+      "epoch": 20,
+      "train_nll": -2.2155679221055946
+    },
+    {
+      "epoch": 21,
+      "train_nll": -2.2256216191921103
+    },
+    {
+      "epoch": 22,
+      "train_nll": -2.244828552615886
+    },
+    {
+      "epoch": 23,
+      "train_nll": -2.269218926527062
+    },
+    {
+      "epoch": 24,
+      "train_nll": -2.296577432528645
+    },
+    {
+      "epoch": 25,
+      "train_nll": -2.318506247332307
+    }
+  ]
+}

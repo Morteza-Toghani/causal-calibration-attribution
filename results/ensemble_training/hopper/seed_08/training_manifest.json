@@ -1,0 +1,59 @@
+{
+  "env": "hopper",
+  "dataset_id": "mujoco/hopper/medium-v0",
+  "seed_idx": 8,
+  "split_seed": 1008,
+  "device": "cpu",
+  "torch_version": "2.7.1+cpu",
+  "hidden": [
+    256,
+    256
+  ],
+  "epochs": 25,
+  "batch_size": 1024,
+  "learning_rate": 0.0003,
+  "weight_decay": 1e-05,
+  "grad_clip_max_norm": 5.0,
+  "logvar_clamp": [
+    -10.0,
+    5.0
+  ],
+  "optimizer": "AdamW",
+  "members": [
+    {
+      "member_idx": 2,
+      "member_seed": 802,
+      "elapsed_seconds": 333.73292303085327,
+      "checkpoint": "results\\ensemble_training\\hopper\\seed_08\\checkpoints\\ensemble_member_02.pt",
+      "final_train_nll": -2.319354297352486
+    },
+    {
+      "member_idx": 3,
+      "member_seed": 803,
+      "elapsed_seconds": 334.1107485294342,
+      "checkpoint": "results\\ensemble_training\\hopper\\seed_08\\checkpoints\\ensemble_member_03.pt",
+      "final_train_nll": -2.2795772925526108
+    },
+    {
+      "member_idx": 1,
+      "member_seed": 801,
+      "elapsed_seconds": 334.2287392616272,
+      "checkpoint": "results\\ensemble_training\\hopper\\seed_08\\checkpoints\\ensemble_member_01.pt",
+      "final_train_nll": -2.312408374280346
+    },
+    {
+      "member_idx": 0,
+      "member_seed": 800,
+      "elapsed_seconds": 334.60439682006836,
+      "checkpoint": "results\\ensemble_training\\hopper\\seed_08\\checkpoints\\ensemble_member_00.pt",
+      "final_train_nll": -2.3409309079046965
+    },
+    {
+      "member_idx": 4,
+      "member_seed": 804,
+      "elapsed_seconds": 335.08741068840027,
+      "checkpoint": "results\\ensemble_training\\hopper\\seed_08\\checkpoints\\ensemble_member_04.pt",
+      "final_train_nll": -2.3544015689772
+    }
+  ]
+}
