@@ -1,91 +1,39 @@
-# 1. Introduction (draft)
+# 2. Introduction
 
-Uncertainty-aware world models — probabilistic predictors of the
-next state of a dynamical system — are increasingly used as components
-of decision-making pipelines in reinforcement learning, robotics, and
-model-based control [refs]. For these models to be useful, their
-uncertainty estimates must be *calibrated*: the predicted distribution
-of the next state should match the empirical distribution of realized
-next states.
+Model-based reinforcement learning relies on learned world models that predict the next state from the current state and action. When such a model is trained on a fixed offline dataset, its predictions are used for planning or policy optimization in regions the data only partly covers, so the model must also report how uncertain it is [REF: Levine et al., offline RL tutorial; Kidambi et al., MOReL; Yu et al., MOPO; Janner et al., MBPO]. Probabilistic ensembles are a common choice for this purpose [REF: Lakshminarayanan et al., deep ensembles; Chua et al., PETS]. The usefulness of their uncertainty estimates depends on calibration: a nominal 90% predictive interval should contain the realized next state about 90% of the time [REF: Kuleshov et al., calibrated regression]. Miscalibrated uncertainty can lead a planner to trust predictions it should discount, or to discount predictions it could trust [REF: Malik et al., calibrated model-based RL].
 
-Under distribution shift, this calibration can break down. Prior work
-has documented this breakdown empirically and proposed various
-recalibration methods [refs]. However, existing studies typically
-treat distribution shift as a single, undifferentiated signal — an
-"OOD score" or an "out-of-distribution" flag — and report calibration
-degradation without asking *which specific change in the data-generating
-process* is responsible for the failure.
+Calibration is known to degrade under distribution shift [REF: Ovadia et al., can you trust your model's uncertainty]. Most studies, however, treat shift as one undifferentiated out-of-distribution signal. In an offline world-model setting, "shift" can mean at least three different things. The transition dynamics may differ from those that generated the data (dynamics shift). The inputs may be corrupted or measured differently (observation shift). The behavior that visits states and selects actions may change (policy shift). These mechanisms act on different parts of the prediction problem, and there is no reason to expect them to affect calibration equally, or even in the same direction. Detecting that calibration fails does not tell a practitioner which mechanism to guard against.
 
-This matters because different changes act on different parts of the
-predictive pipeline. A change in the transition dynamics alters the
-ground-truth transition function while leaving the observation process
-and the policy unchanged. A change in the observation process corrupts
-the inputs to the model while leaving the underlying physics intact.
-A change in the policy alters which states and actions are being
-evaluated, which in turn shifts the state distribution that the model
-sees. Treating these mechanisms as interchangeable conflates physically
-and statistically distinct phenomena.
+## The causal question
 
-In this paper, we ask a causal question: **which mechanism-specific
-distribution shift causally produces calibration failure in an
-uncertainty-aware offline world model, and by how much, under
-controlled intervention?**
+We ask:
 
-To answer this question we design a controlled counterfactual
-evaluation protocol:
+> Which mechanism-specific distribution shift causally produces calibration failure in an uncertainty-aware offline world model, and by how much, under controlled intervention?
 
-1. We train a 5-member probabilistic Gaussian MLP ensemble on offline
-   RL data (`mujoco/hopper/medium-v0`, `mujoco/walker2d/medium-v0`),
-   with fixed hyperparameters and 5 independent training seeds.
+The question is one of attribution. We do not propose a new world model or a new detector. We hold the trained model fixed and ask how much each mechanism, applied alone, changes its calibration.
 
-2. For each seed, we apply each mechanism-specific intervention at
-   *evaluation time only*, keeping the trained model fixed. This
-   isolates the effect of the intervention from training-time
-   variability.
+## Controlled counterfactual design
 
-3. We use **fixed probe states** for the policy intervention, so that
-   the probe set is identical across baseline and treatment.
+We trained 5-member Gaussian MLP ensembles on offline data from two MuJoCo locomotion environments, Hopper and Walker2d. Each mechanism was applied at evaluation time only, so no model was retrained per intervention. Dynamics shift scaled MuJoCo body masses; observation shift added Gaussian noise to the model input; policy shift scaled the actions applied at fixed probe states. Each intervention was applied at a low and a high severity. We compared each treated evaluation with an untreated one on the same trained model, the same instances, and shared random draws where noise was involved. The primary estimand was the paired average treatment effect (ATE) on an instance-level regression calibration error.
 
-4. We use **paired random draws** (Common Random Numbers) between
-   baseline and treatment conditions, so that the paired difference
-   cancels nuisance randomness.
+Two methodological issues arose that changed the conclusions, and we treat them as results. First, MuJoCo re-simulation of an identity intervention (mass scale 1.0, action scale 1.0) did not reproduce the dataset targets exactly, which produced a non-zero apparent effect for an intervention that should do nothing. Second, the trained ensembles were over-dispersed, so their intervals were wider than nominal at every level. We therefore report an analysis corrected for re-simulation bias and a second analysis that additionally recalibrates the baseline.
 
-5. We compute a mechanism-specific **paired average treatment effect**
-   on a direction-aware, per-instance regression calibration error,
-   and report 95% confidence intervals using the Student-t distribution
-   with `df = 4`.
+## Main finding
 
-Our main finding is that, once the baseline is properly calibrated and
-the re-simulation bias in the dynamics and policy pipelines is removed,
-the observation pathway dominates: its effect on calibration error is
-two orders of magnitude larger than the dynamics or policy effects on
-Hopper, and three to five times larger on Walker2d.
+Once the baseline was recalibrated, observation shift was the dominant pathway of calibration failure in both environments. Its ATE was between +0.07955 and +0.26588 depending on environment and severity, while dynamics and policy effects did not exceed 0.01111 in magnitude. Before recalibration, the ranking was less clear, and the observation effect at high severity had opposite signs in Hopper and Walker2d. The naive hypothesis that every intervention increases calibration error was not supported: dynamics interventions reduced the metric in both environments, at both severities.
 
-We additionally document two methodological pitfalls that, if not
-handled, can produce misleading results: (a) baseline over-dispersion
-can cause the sign of the observation effect to flip, and (b) a
-re-simulation bias in the dynamics and policy pipelines leaks into the
-paired ATE unless the paired baseline is also re-simulated.
+## Contributions
 
-**Contributions.**
+1. We formulate calibration failure under distribution shift as a mechanism-specific counterfactual attribution problem and implement it as evaluation-time interventions on a fixed trained ensemble, with matched instances and common random numbers.
+2. We identify and quantify a re-simulation bias in MuJoCo-based interventions via a null (identity) control, and remove it by using a re-simulated paired baseline.
+3. We show that the trained ensembles are over-dispersed at every nominal level, and that a single per-seed variance factor fitted on a held-out calibration split changes the ranking of mechanisms.
+4. We report that, after recalibration, observation shift dominates dynamics and policy shift in both Hopper (n = 10 seeds) and Walker2d (n = 5 seeds), with effect sizes and confidence intervals for all twelve environment-by-condition effects.
+5. We provide a reproducible pipeline: the Hopper baseline reproduced the original pipeline's metrics to within 1.2 × 10⁻¹⁶ on five legacy seeds, and all numerical results derive from committed manifests.
 
-1. A modular, reproducible implementation of a controlled counterfactual
-   evaluation protocol for calibration failure in uncertainty-aware
-   world models.
+## Scope of claims
 
-2. A direction-aware, per-instance regression calibration error that
-   supports paired ATE analysis.
+The causal language in this paper refers to controlled computational interventions in a simulator on a fixed trained model. We make no claim about real-world causal identification. We tested two environments, one model class, and one severity pair per mechanism, and the limitations section details what this does not support.
 
-3. An empirical identification and correction of a re-simulation bias
-   in the dynamics and policy intervention pipelines.
+## Organization
 
-4. A controlled comparison of three mechanism-specific shifts across
-   two environments, showing that the observation pathway dominates.
-
-5. A cross-environment observation about the sign of the observation
-   effect depending on baseline over-dispersion.
-
-**Paper organization.** Section 2 reviews related work. Section 3
-describes our method. Section 4 describes the experimental setup.
-Section 5 reports results. Section 6 discusses limitations and
-implications. Section 7 concludes.
+Section 3 reviews related work. Section 4 presents the method: model, interventions, metric, corrections, and statistical analysis. Section 5 gives the experimental setup. Section 6 reports results. Section 7 discusses interpretation and implications. Section 8 states limitations, and Section 9 concludes.

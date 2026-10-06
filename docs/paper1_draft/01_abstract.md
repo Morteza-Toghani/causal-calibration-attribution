@@ -1,37 +1,5 @@
-# Abstract (draft)
+# Abstract
 
-Uncertainty-aware world models are increasingly used for decision-making
-under uncertainty, but their calibration can break down under
-distribution shift. Existing work typically treats distribution shift
-as a single, undifferentiated source of failure, reporting calibration
-degradation without attributing it to a specific mechanism. We ask a
-different question: **which mechanism-specific shift causally produces
-calibration failure, and by how much, under controlled intervention?**
+Uncertainty-aware world models are widely used in offline reinforcement learning, yet their calibration under distribution shift is usually studied as a single out-of-distribution signal. We ask a mechanism-specific question: which shift (dynamics, observation, or policy) causally produces calibration failure in a probabilistic ensemble world model, and by how much? We trained 5-member Gaussian MLP ensembles on Minari `hopper/medium-v0` (n = 10 training seeds) and `walker2d/medium-v0` (n = 5) and applied evaluation-time interventions without retraining: body-mass scaling, additive input noise, and action scaling on fixed probe states. The primary estimand was the paired average treatment effect (ATE) on instance-level regression calibration error, estimated with matched instances and common random numbers.
 
-We study three mechanisms — dynamics shift, observation shift, and
-policy shift — in a 5-member probabilistic ensemble world model trained
-on the Minari `mujoco/hopper/medium-v0` and `mujoco/walker2d/medium-v0`
-offline datasets. We apply each intervention at evaluation time, on
-fixed probe states, with paired random draws (CRN) and report paired
-average treatment effects (ATE) on regression calibration error over
-5 training seeds.
-
-Three findings emerge. First, the baseline ensemble over-covers at
-every nominal level; a single per-seed variance scaling factor
-`alpha` fitted on a calibration split (never used during training)
-brings coverage to nominal (`alpha ≈ 0.24` on Hopper, `≈ 0.37` on
-Walker2d). Second, an identity intervention reveals a systematic
-re-simulation bias in the dynamics and policy pipelines
-(`≈ -0.003` on Hopper, `≈ -0.007` on Walker2d), which we correct by
-using re-simulated targets as the paired baseline for both conditions.
-Third, after correction and recalibration, the observation pathway
-dominates: its effect on calibration error is two orders of magnitude
-larger than the dynamics or policy effects on Hopper, and three to
-five times larger on Walker2d.
-
-Our results show that mechanism attribution of calibration failure
-requires (a) a properly calibrated baseline, (b) accounting for
-re-simulation bias, and (c) direction-aware evaluation. We also
-observe that the sign of the observation effect depends on the
-magnitude of baseline over-dispersion, which may explain why earlier
-studies have reported inconsistent results.
+We report three findings. First, the trained ensembles were over-dispersed at every nominal level; for Hopper, signed coverage at the 0.50 level was +0.35, and a per-seed variance factor fitted on a held-out calibration split (alpha = 0.2361 for Hopper, 0.3725 for Walker2d) indicated variance 4.2× and 2.7× too large, respectively. Second, after recalibration, observation shift dominated: ATEs were +0.20125 and +0.26588 (Hopper) and +0.07955 and +0.15449 (Walker2d), whereas dynamics and policy effects were at most 0.01111 in magnitude. Without recalibration, the observation effect at high severity changed sign across environments. Third, MuJoCo re-simulation under an identity intervention shifted the metric by −0.0032 (Hopper) and −0.0066 (Walker2d); a re-simulated paired baseline removed this bias. Reporting calibration failure under shift without a calibrated baseline may therefore conflate mechanisms. Causal claims are restricted to this controlled computational design.
