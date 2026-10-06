@@ -163,6 +163,63 @@ The emphasis is on estimating the size and uncertainty of the mechanism-specific
 The current design recommends multiple matched training seeds, with the exact number adjusted according to the available compute budget and pilot results.
 
 ---
+## Key findings
+
+After migrating the original Paper 1 pipeline to this modular repository
+and reproducing its baseline and all three interventions **bit-for-bit**
+across 5 seeds, we obtained the following results. All numbers are
+means over 5 seeds; confidence intervals use Student's t with `df=4`
+(`t_crit = 2.776`).
+
+### 1. Baseline over-dispersion (α ≈ 0.24)
+
+The 5-member ensemble **over-covers at every nominal level**. Signed
+coverage at nominal 0.50 is `+0.35` (empirical 0.85 instead of 0.50).
+A single per-seed variance scaling factor `alpha ≈ 0.24` fitted on the
+**calibration split** (nominal 0.90) brings coverage to nominal. The
+baseline predictive variance is roughly 4× too large.
+
+### 2. Observation shift dominates the mechanism story
+
+After recalibration, the effect of mechanism-specific shift on the
+regression calibration error is:
+
+| Condition | ATE | 95% t-CI | Magnitude |
+|---|---|---|---|
+| `observation_high` | **+0.264** | [+0.261, +0.267] | ×70 |
+| `observation_low`  | **+0.199** | [+0.194, +0.203] | ×53 |
+| `dynamics_high`    | -0.0038 | [-0.0059, -0.0017] | ×1.0 |
+| `policy_high`      | +0.0027 | [+0.0018, +0.0037] | ×0.7 |
+| `dynamics_low`     | -0.0012 | [-0.0016, -0.0008] | ×0.3 |
+| `policy_low`       | +0.0008 | [+0.0004, +0.0012] | ×0.2 |
+
+The observation pathway produces effects **two orders of magnitude
+larger** than dynamics or policy. Once the baseline is properly
+calibrated, only observation shift has a practically relevant effect.
+
+### 3. Re-simulation bias in dynamics and policy
+
+An identity intervention (`mass_scale=1.0` for dynamics, `action_scale=1.0`
+for policy) does **not** reproduce the dataset target bit-for-bit:
+`max|y_new - y| ≈ 2.7` and ATE bias ≈ -0.003 per seed. The cause is
+MuJoCo `set_state` + `step` not resetting `qacc_warmstart` internally,
+plus the x=0 reconstruction of state from the observation. Correcting
+the paired baseline to use `y_resim(scale=1.0)` changes the D and P
+ATEs substantially — see [`docs/paper1_findings.md`](docs/paper1_findings.md).
+
+### Reproduce
+
+```bash
+python scripts/reproduce_baseline_all_seeds.py         # baseline, 5 seeds
+python scripts/reproduce_interventions_all_seeds.py    # interventions, 5 seeds
+python scripts/null_control.py                         # re-simulation bias
+python scripts/analyze_signed_coverage.py              # direction-aware coverage
+python scripts/analyze_interventions_corrected.py      # corrected ATE
+python scripts/analyze_t_ci.py                         # t-CI corrected
+python scripts/recalibrate_and_rerun.py                # recalibration
+python scripts/analyze_t_ci_recalibrated.py            # t-CI recalibrated
+
+
 
 ## Current Status
 
