@@ -21,7 +21,6 @@ from src.data.frozen_extract import extract_transitions
 from src.data.frozen_split import deterministic_episode_split
 from src.model.ensemble_v2 import load_member, predict_ensemble
 
-
 LEGACY = Path.home() / 'paper1_run' / 'experiments' / 'hopper' / 'seed_00'
 TARGET_METRICS = LEGACY / 'results' / 'baseline_metrics.json'
 

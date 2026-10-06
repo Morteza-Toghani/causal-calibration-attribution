@@ -8,7 +8,6 @@ import pytest
 
 from src.model.ensemble_v2 import load_member, predict_ensemble
 
-
 LEGACY = Path.home() / "paper1_run" / "experiments" / "hopper" / "seed_00"
 
 

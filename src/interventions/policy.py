@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import numpy as np
 
-
 SPEC_CONFIG = {
     'Hopper-v5':   {'nq': 6, 'nv': 6, 'qpos_tail_len': 5, 'qvel_slice': (5, 11)},
     'Walker2d-v5': {'nq': 9, 'nv': 9, 'qpos_tail_len': 8, 'qvel_slice': (8, 17)},

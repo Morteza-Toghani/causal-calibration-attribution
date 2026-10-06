@@ -20,7 +20,6 @@ from __future__ import annotations
 import numpy as np
 from scipy.stats import norm
 
-
 NOMINAL_COVERAGES = (0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90)
 
 

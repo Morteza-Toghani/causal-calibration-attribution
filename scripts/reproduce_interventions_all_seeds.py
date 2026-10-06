@@ -2,14 +2,13 @@
 from __future__ import annotations
 
 import json
-import math
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-import numpy as np
 import minari
+import numpy as np
 
 from src.calibration.instance import instance_calibration_error
 from src.data.frozen_extract import extract_transitions
@@ -18,7 +17,6 @@ from src.interventions.dynamics import dynamics_next_state_from_env
 from src.interventions.observation import compute_obs_scale, make_observation_noise
 from src.interventions.policy import action_scaler, resimulate_with_new_action
 from src.model.ensemble_v2 import load_member, predict_ensemble
-
 
 PAPER1 = Path.home() / 'paper1_run' / 'experiments' / 'hopper'
 

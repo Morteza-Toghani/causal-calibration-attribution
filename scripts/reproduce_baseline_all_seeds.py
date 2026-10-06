@@ -8,13 +8,12 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-import numpy as np
 import minari
+import numpy as np
 
 from src.data.frozen_extract import extract_transitions
 from src.data.frozen_split import deterministic_episode_split
 from src.model.ensemble_v2 import load_member, predict_ensemble
-
 
 PAPER1 = Path.home() / 'paper1_run' / 'experiments' / 'hopper'
 NOMINAL_COVERAGES = [0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90]
