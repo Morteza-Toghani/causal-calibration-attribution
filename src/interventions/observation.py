@@ -39,3 +39,24 @@ def make_observation_noise(
 def apply_observation_noise(obs: np.ndarray, eps: np.ndarray) -> np.ndarray:
     """Additive intervention on input observations."""
     return (obs + eps).astype(np.float32)
+
+
+
+# ---------------------------------------------------------------------------
+# Backward-compatibility aliases (legacy API used by tests/test_observation_shift.py)
+# ---------------------------------------------------------------------------
+
+def draw_base_noise(obs_shape, rng):
+    """Legacy alias: return a standard-normal draw of the given shape."""
+    return rng.standard_normal(size=obs_shape).astype(np.float32)
+
+
+def apply_observation_shift(obs, noise_fraction, reference_scale, rng):
+    """Legacy wrapper: apply additive standardized noise to observations.
+
+    Returns the perturbed observation. Equivalent to:
+        eps = make_observation_noise(obs.shape, reference_scale, noise_fraction, rng)
+        return apply_observation_noise(obs, eps)
+    """
+    eps = make_observation_noise(obs.shape, reference_scale, noise_fraction, rng)
+    return apply_observation_noise(obs, eps)
