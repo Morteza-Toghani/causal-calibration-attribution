@@ -15,15 +15,15 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import minari
 import numpy as np
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
-import minari
 
 from src.data.frozen_extract import extract_transitions
 from src.data.frozen_split import deterministic_episode_split
-from src.model.standardizer import fit_standardizer, apply_standardizer
+from src.model.standardizer import apply_standardizer, fit_standardizer
 
 
 def build_model_class():
