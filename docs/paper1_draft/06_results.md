@@ -102,7 +102,24 @@ The observation effect was between about 14 and 234 times larger than the dynami
 
 *Figure 6.1 (description).* A grouped bar or forest plot with one panel per environment. The horizontal axis shows the recalibrated ATE on a symmetric-log scale, so that effects of order 10⁻³ and 10⁻¹ can be seen together. Rows are the six conditions, and horizontal bars show 95% $t$-intervals. A vertical line marks zero. Individual seed-level ATEs are overlaid as points to show between-seed variability.
 
-[FILL: sign-flip permutation $p$-values and Holm-adjusted $p$-values for each of the twelve conditions, from the results manifest. At $n = 10$ the minimum attainable two-sided $p$ is 0.00195; at $n = 5$ it is 0.0625, so no Walker2d condition can reach $p < 0.05$ in the exact test even before the Holm correction.]
+Sign-flip permutation $p$-values and Holm-adjusted $p$-values for each of the twelve recalibrated conditions are reported in Table 6.2. At $n = 10$ the minimum attainable two-sided $p$ is 0.00195.
+
+**Table 6.2 — Sign-flip permutation $p$-values (recalibrated ATE).**
+
+| Env | Mechanism | Intensity | n | ATE | p (raw) | p (Holm) |
+|---|---|---|---|---|---|---|
+| hopper | dynamics | high | 10 | -0.00445 | 0.00195 | 0.02344 |
+| hopper | dynamics | low | 10 | -0.00113 | 0.00391 | 0.02344 |
+| hopper | observation | high | 10 | +0.26588 | 0.00195 | 0.02344 |
+| hopper | observation | low | 10 | +0.20125 | 0.00195 | 0.02344 |
+| hopper | policy | high | 10 | +0.00247 | 0.00195 | 0.02344 |
+| hopper | policy | low | 10 | +0.00086 | 0.00195 | 0.02344 |
+| walker2d | dynamics | high | 10 | -0.01194 | 0.00195 | 0.02344 |
+| walker2d | dynamics | low | 10 | -0.00178 | 0.00195 | 0.02344 |
+| walker2d | observation | high | 10 | +0.15268 | 0.00195 | 0.02344 |
+| walker2d | observation | low | 10 | +0.07749 | 0.00195 | 0.02344 |
+| walker2d | policy | high | 10 | +0.00630 | 0.00195 | 0.02344 |
+| walker2d | policy | low | 10 | +0.00486 | 0.00195 | 0.02344 |
 
 ## 6.6 Cross-environment comparison
 
@@ -127,6 +144,6 @@ Recalibration also reduced the magnitude of the dynamics effects, for example fr
 
 The pre-specified hypothesis H1 stated that every intervention worsens calibration relative to the baseline, that is, every ATE on calibration error is positive. **The data rejected H1.** The dynamics intervention produced negative ATEs in both environments, at both severities, in both the corrected and the recalibrated analyses; for example, Hopper `dynamics_high` was −0.00445 (95% CI [−0.00597, −0.00294]) and Walker2d `dynamics_high` was −0.01111 (95% CI [−0.01232, −0.00990]) after recalibration. Before recalibration, the Hopper and Walker2d `observation_low` effects and the Walker2d `observation_high` effect were also negative. Only policy shift gave positive effects in every analysis, and observation shift gave positive effects in every recalibrated condition.
 
-We note what the negative dynamics effects do and do not show. The metric is an unsigned deviation from nominal coverage. An intervention that moves the error distribution in a direction that reduces the deviation yields a negative ATE, even though predictive accuracy may be worse. The ATE on calibration error should not be read as an effect on predictive quality. This manuscript does not test whether NLL, CRPS, or sharpness move in the same direction as calibration error under these interventions. [FILL: secondary-metric ATE tables, if the verified numbers are available; otherwise state that they were not analyzed.]
+We note what the negative dynamics effects do and do not show. The metric is an unsigned deviation from nominal coverage. An intervention that moves the error distribution in a direction that reduces the deviation yields a negative ATE, even though predictive accuracy may be worse. The ATE on calibration error should not be read as an effect on predictive quality. This manuscript does not test whether NLL, CRPS, or sharpness move in the same direction as calibration error under these interventions. Secondary metrics (NLL, CRPS, sharpness) were not analyzed at the mechanism level in this paper; the analysis is restricted to coverage-based calibration error. A mechanism-level analysis of sharpness and proper scoring rules is left to future work.
 
 In summary, the evidence supports three statements within this design. Observation shift, after baseline recalibration, produced the largest increase in calibration error in both environments. Policy shift produced small positive effects. Dynamics shift at the tested severities produced small negative effects. The naive claim that all shifts uniformly harm calibration was not supported.

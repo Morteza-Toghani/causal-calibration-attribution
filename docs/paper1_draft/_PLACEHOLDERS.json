@@ -234,66 +234,10 @@
   {
     "file": "04_method.md",
     "line": 105,
-    "kind": "FILL",
-    "content": "bootstrap resampling unit, number of resamples.",
-    "raw": "[FILL: bootstrap resampling unit, number of resamples.]",
-    "context": "For hypothesis tests we used a paired sign-flip permutation test on the seed-level differences. For $n$ seeds, the exact test has $2^n$ equally likely sign assi"
-  },
-  {
-    "file": "04_method.md",
-    "line": 105,
     "kind": "VERIFY",
     "content": "confirm family definition against the analysis code.",
     "raw": "[VERIFY: confirm family definition against the analysis code.]",
     "context": "For hypothesis tests we used a paired sign-flip permutation test on the seed-level differences. For $n$ seeds, the exact test has $2^n$ equally likely sign assi"
-  },
-  {
-    "file": "05_experimental_setup.md",
-    "line": 12,
-    "kind": "FILL",
-    "content": "Minari version and dataset hash or commit.",
-    "raw": "[FILL: Minari version and dataset hash or commit.]",
-    "context": "Dataset names, versions, episode boundaries, and metadata were recorded in a manifest committed with the code. [FILL: Minari version and dataset hash or commit."
-  },
-  {
-    "file": "05_experimental_setup.md",
-    "line": 59,
-    "kind": "FILL",
-    "content": "device, GPU/CPU model, driver and library versions",
-    "raw": "[FILL: device, GPU/CPU model, driver and library versions]",
-    "context": "Training and evaluation were run on [FILL: device, GPU/CPU model, driver and library versions]. Random generators were seeded per training seed and per evaluati"
-  },
-  {
-    "file": "05_experimental_setup.md",
-    "line": 59,
-    "kind": "FILL",
-    "content": "determinism flags used, if any.",
-    "raw": "[FILL: determinism flags used, if any.]",
-    "context": "Training and evaluation were run on [FILL: device, GPU/CPU model, driver and library versions]. Random generators were seeded per training seed and per evaluati"
-  },
-  {
-    "file": "05_experimental_setup.md",
-    "line": 59,
-    "kind": "FILL",
-    "content": "repository URL, commit hash, and archive DOI.",
-    "raw": "[FILL: repository URL, commit hash, and archive DOI.]",
-    "context": "Training and evaluation were run on [FILL: device, GPU/CPU model, driver and library versions]. Random generators were seeded per training seed and per evaluati"
-  },
-  {
-    "file": "06_results.md",
-    "line": 105,
-    "kind": "FILL",
-    "content": "sign-flip permutation $p$-values and Holm-adjusted $p$-values for each of the twelve conditions, from the results manifest. At $n = 10$ the minimum attainable two-sided $p$ is 0.00195; at $n = 5$ it is 0.0625, so no Walker2d condition can reach $p < 0.05$ in the exact test even before the Holm correction.",
-    "raw": "[FILL: sign-flip permutation $p$-values and Holm-adjusted $p$-values for each of the twelve conditions, from the results manifest. At $n = 10$ the minimum attainable two-sided $p$ is 0.00195; at $n = 5$ it is 0.0625, so no Walker2d condition can reach $p < 0.05$ in the exact test even before the Holm correction.]",
-    "context": "[FILL: sign-flip permutation $p$-values and Holm-adjusted $p$-values for each of the twelve conditions, from the results manifest. At $n = 10$ the minimum attai"
-  },
-  {
-    "file": "06_results.md",
-    "line": 130,
-    "kind": "FILL",
-    "content": "secondary-metric ATE tables, if the verified numbers are available; otherwise state that they were not analyzed.",
-    "raw": "[FILL: secondary-metric ATE tables, if the verified numbers are available; otherwise state that they were not analyzed.]",
-    "context": "We note what the negative dynamics effects do and do not show. The metric is an unsigned deviation from nominal coverage. An intervention that moves the error d"
   },
   {
     "file": "07_discussion.md",

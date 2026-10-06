@@ -1,6 +1,6 @@
 # Placeholder checklist — Paper 1 drafts
 
-Total placeholders: **38**
+Total placeholders: **31**
 
 
 ## REF (26)
@@ -57,23 +57,6 @@ Total placeholders: **38**
       context: We did not use the classification ECE. That metric bins predicted confidences of discrete labels. A continuous regression output has no analogous single confide
 - [ ] **07_discussion.md:25** — `[REF: Yu et al., MOPO; Kidambi et al., MOReL]`
       context: Planners that use ensemble uncertainty as a penalty or as a trust signal assume that stated uncertainty tracks error [REF: Yu et al., MOPO; Kidambi et al., MORe
-
-## FILL (7)
-
-- [ ] **04_method.md:105** — `[FILL: bootstrap resampling unit, number of resamples.]`
-      context: For hypothesis tests we used a paired sign-flip permutation test on the seed-level differences. For $n$ seeds, the exact test has $2^n$ equally likely sign assi
-- [ ] **05_experimental_setup.md:12** — `[FILL: Minari version and dataset hash or commit.]`
-      context: Dataset names, versions, episode boundaries, and metadata were recorded in a manifest committed with the code. [FILL: Minari version and dataset hash or commit.
-- [ ] **05_experimental_setup.md:59** — `[FILL: device, GPU/CPU model, driver and library versions]`
-      context: Training and evaluation were run on [FILL: device, GPU/CPU model, driver and library versions]. Random generators were seeded per training seed and per evaluati
-- [ ] **05_experimental_setup.md:59** — `[FILL: determinism flags used, if any.]`
-      context: Training and evaluation were run on [FILL: device, GPU/CPU model, driver and library versions]. Random generators were seeded per training seed and per evaluati
-- [ ] **05_experimental_setup.md:59** — `[FILL: repository URL, commit hash, and archive DOI.]`
-      context: Training and evaluation were run on [FILL: device, GPU/CPU model, driver and library versions]. Random generators were seeded per training seed and per evaluati
-- [ ] **06_results.md:105** — `[FILL: sign-flip permutation $p$-values and Holm-adjusted $p$-values for each of the twelve conditions, from the results manifest. At $n = 10$ the minimum attainable two-sided $p$ is 0.00195; at $n = 5$ it is 0.0625, so no Walker2d condition can reach $p < 0.05$ in the exact test even before the Holm correction.]`
-      context: [FILL: sign-flip permutation $p$-values and Holm-adjusted $p$-values for each of the twelve conditions, from the results manifest. At $n = 10$ the minimum attai
-- [ ] **06_results.md:130** — `[FILL: secondary-metric ATE tables, if the verified numbers are available; otherwise state that they were not analyzed.]`
-      context: We note what the negative dynamics effects do and do not show. The metric is an unsigned deviation from nominal coverage. An intervention that moves the error d
 
 ## VERIFY (5)
 

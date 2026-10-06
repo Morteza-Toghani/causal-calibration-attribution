@@ -9,7 +9,7 @@ We used two MuJoCo locomotion environments with offline data from the Minari lib
 | Hopper | `mujoco/hopper/medium-v0` | 1327 | 999,404 | 11 | 3 |
 | Walker2d | `mujoco/walker2d/medium-v0` | 1044 | 999,613 | 17 | 6 |
 
-Dataset names, versions, episode boundaries, and metadata were recorded in a manifest committed with the code. [FILL: Minari version and dataset hash or commit.] Both datasets are of the "medium" quality level. We did not use replay or expert datasets, and we did not test other quality levels.
+Dataset names, versions, episode boundaries, and metadata were recorded in a manifest committed with the code. Minari 0.5.3, MuJoCo 3.2.3, Gymnasium 1.3.0. Both datasets are of the "medium" quality level. We did not use replay or expert datasets, and we did not test other quality levels.
 
 ## 5.2 Model training
 
@@ -56,4 +56,4 @@ Hopper seeds 0–4 came from the original pipeline, and seeds 5–9 were trained
 
 ## 5.6 Reproducibility
 
-Training and evaluation were run on [FILL: device, GPU/CPU model, driver and library versions]. Random generators were seeded per training seed and per evaluation. We did not assume bit-level determinism of GPU operations. [FILL: determinism flags used, if any.] Model checkpoints, configuration files, and run manifests were committed, and every table in this paper is generated from machine-readable result files, not entered by hand. As a validation of the reimplementation, all five legacy Hopper seeds reproduced the original pipeline's `baseline_metrics.json` with a maximum absolute difference below 1.2 × 10⁻¹⁶ across seven metrics (Section 6.1). [FILL: repository URL, commit hash, and archive DOI.]
+Training and evaluation were run on CPU only (12 physical cores; PyTorch restricted to 6 threads) under Windows. PyTorch 2.7.1+cpu, NumPy 1.26.4, SciPy 1.15.3, pandas 2.3.1, Matplotlib 3.10.9.. Random generators were seeded per training seed and per evaluation. We did not assume bit-level determinism of GPU operations. No determinism flags beyond per-seed and per-member seeding were enabled. All reported bit-exact reproductions were obtained on CPU. Model checkpoints, configuration files, and run manifests were committed, and every table in this paper is generated from machine-readable result files, not entered by hand. As a validation of the reimplementation, all five legacy Hopper seeds reproduced the original pipeline's `baseline_metrics.json` with a maximum absolute difference below 1.2 × 10⁻¹⁶ across seven metrics (Section 6.1). https://github.com/Morteza-Toghani/causal-calibration-attribution (commit 6a17e80; archive DOI to be assigned at submission).
