@@ -41,22 +41,28 @@ def apply_observation_noise(obs: np.ndarray, eps: np.ndarray) -> np.ndarray:
     return (obs + eps).astype(np.float32)
 
 
-
 # ---------------------------------------------------------------------------
-# Backward-compatibility aliases (legacy API used by tests/test_observation_shift.py)
+# Backward-compatibility aliases for tests/test_observation_shift.py
 # ---------------------------------------------------------------------------
 
-def draw_base_noise(obs_shape, rng):
-    """Legacy alias: return a standard-normal draw of the given shape."""
-    return rng.standard_normal(size=obs_shape).astype(np.float32)
+def draw_base_noise(obs_shape, seed):
+    """Deterministic standard-normal draw given an integer seed."""
+    rng = np.random.default_rng(seed)
+    return rng.standard_normal(size=obs_shape)
 
 
-def apply_observation_shift(obs, noise_fraction, reference_scale, rng):
-    """Legacy wrapper: apply additive standardized noise to observations.
+def apply_observation_shift(obs, eps, intensity, reference_scale):
+    """Add scaled noise to observations.
 
-    Returns the perturbed observation. Equivalent to:
-        eps = make_observation_noise(obs.shape, reference_scale, noise_fraction, rng)
-        return apply_observation_noise(obs, eps)
+    shifted = obs + eps * intensity * reference_scale
+
+    Preserves obs.dtype. Rejects shape mismatch and negative intensity.
     """
-    eps = make_observation_noise(obs.shape, reference_scale, noise_fraction, rng)
-    return apply_observation_noise(obs, eps)
+    obs = np.asarray(obs)
+    eps = np.asarray(eps)
+    if obs.shape != eps.shape:
+        raise ValueError(f'shape mismatch: obs {obs.shape} vs eps {eps.shape}')
+    if intensity < 0:
+        raise ValueError('intensity must be non-negative')
+    result = obs + eps.astype(obs.dtype) * float(intensity) * reference_scale
+    return result.astype(obs.dtype)
