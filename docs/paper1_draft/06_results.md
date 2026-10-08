@@ -16,7 +16,7 @@ The unsigned calibration error does not show whether intervals are too wide or t
 |---|---|---|---|---|---|---|---|---|---|
 | Signed coverage | +0.141 | +0.257 | +0.334 | +0.364 | +0.352 | +0.309 | +0.245 | +0.168 | +0.084 |
 
-The baseline over-covered at every level. At the nominal 0.50 level the empirical coverage was about 0.85, a signed coverage of +0.35. The gap was largest at the middle levels (+0.364 at 0.40) and smallest at 0.90 (+0.084). The variance scaling factors fitted on the calibration split to match coverage at 0.90 were $\alpha = 0.2361$ for Hopper, implying that the predicted variance was about 4.2 times too large, and $\alpha = 0.3725$ for Walker2d, implying about 2.7 times too large. The Walker2d baseline over-covered as well, but we report the signed-coverage curve for Hopper only.
+The baseline over-covered at every level. At the nominal 0.50 level the empirical coverage was about 0.85, a signed coverage of +0.35. The gap was largest at the middle levels (+0.364 at 0.40) and smallest at 0.90 (+0.084). The variance scaling factors fitted on the calibration split to match coverage at 0.90 were $\alpha = 0.2361$ for Hopper, implying that the predicted variance was about 4.2 times too large, and $\alpha = 0.3743$ for Walker2d, implying about 2.7 times too large. The Walker2d baseline over-covered as well, but we report the signed-coverage curve for Hopper only.
 
 ## 6.3 Null control
 
