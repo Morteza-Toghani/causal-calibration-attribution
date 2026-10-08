@@ -53,7 +53,7 @@ Tables 6.3 and 6.4 show effects corrected for re-simulation bias, using the orig
 | observation_low | −0.09810 ± 0.00616 | [−0.10251, −0.09369] |
 | observation_high | −0.03307 ± 0.00631 | [−0.03759, −0.02856] |
 | dynamics_low | −0.00301 ± 0.00046 | [−0.00334, −0.00269] |
-| dynamics_high | −0.02407 ± 0.00105 | [−0.02537, −0.02277] |
+| dynamics_high | −0.02418 ± 0.00105 | [−0.02537, −0.02277] |
 | policy_low | +0.00950 ± 0.00068 | [+0.00865, +0.01035] |
 | policy_high | +0.01940 ± 0.00187 | [+0.01707, +0.02173] |
 
@@ -98,7 +98,7 @@ All twelve effects excluded zero at the 95% level. The observation effects were 
 | Walker2d | low | 48 | 16 |
 | Walker2d | high | 14 | 22 |
 
-The observation effect was between about 14 and 234 times larger than the dynamics or policy effect. In Hopper, the observation effects (0.20125 to 0.26588) exceeded dynamics and policy effects (at most 0.00445 in magnitude) by roughly one and a half to two orders of magnitude. In Walker2d, the observation effects (0.07955 to 0.15449) exceeded dynamics and policy effects (at most 0.01111 in magnitude) by roughly one to one and a half orders.
+The observation effect was between about 15 and 155 times larger than the dynamics or policy effect. In Hopper, the observation effects (0.20125 to 0.26588) exceeded dynamics and policy effects (at most 0.00445 in magnitude) by roughly one and a half to two orders of magnitude. In Walker2d, the observation effects (0.07749 to 0.15268) exceeded dynamics and policy effects (at most 0.01194 in magnitude) by roughly one to one and a half orders.
 
 *Figure 6.1 (description).* A grouped bar or forest plot with one panel per environment. The horizontal axis shows the recalibrated ATE on a symmetric-log scale, so that effects of order 10⁻³ and 10⁻¹ can be seen together. Rows are the six conditions, and horizontal bars show 95% $t$-intervals. A vertical line marks zero. Individual seed-level ATEs are overlaid as points to show between-seed variability.
 
@@ -136,13 +136,13 @@ Table 6.8 summarizes the sign of each effect across the two analyses and environ
 | policy_low | + | + | + | + |
 | policy_high | + | + | + | + |
 
-Before recalibration, only `observation_high` differed in sign between environments (+0.04129 in Hopper, −0.03256 in Walker2d). After recalibration, signs agreed in every condition. The magnitudes did not agree: recalibrated observation effects were larger in Hopper than in Walker2d at both severities (0.20125 vs 0.07955 at low, 0.26588 vs 0.15449 at high). We tested two environments only, so we cannot say whether the Hopper–Walker2d difference in magnitude reflects environment dimensionality, baseline over-dispersion, or other differences.
+Before recalibration, only `observation_high` differed in sign between environments (+0.04129 in Hopper, −0.03307 in Walker2d). After recalibration, signs agreed in every condition. The magnitudes did not agree: recalibrated observation effects were larger in Hopper than in Walker2d at both severities (0.20125 vs 0.07749 at low, 0.26588 vs 0.15268 at high). We tested two environments only, so we cannot say whether the Hopper–Walker2d difference in magnitude reflects environment dimensionality, baseline over-dispersion, or other differences.
 
-Recalibration also reduced the magnitude of the dynamics effects, for example from −0.02122 to −0.00445 for Hopper `dynamics_high` and from −0.02407 to −0.01111 for Walker2d `dynamics_high`. The policy effects were reduced as well (Hopper `policy_high` from +0.00623 to +0.00247).
+Recalibration also reduced the magnitude of the dynamics effects, for example from −0.02122 to −0.00445 for Hopper `dynamics_high` and from −0.02418 to −0.01194 for Walker2d `dynamics_high`. The policy effects were reduced as well (Hopper `policy_high` from +0.00623 to +0.00247).
 
 ## 6.7 Evidence against the naive hypothesis H1
 
-The pre-specified hypothesis H1 stated that every intervention worsens calibration relative to the baseline, that is, every ATE on calibration error is positive. **The data rejected H1.** The dynamics intervention produced negative ATEs in both environments, at both severities, in both the corrected and the recalibrated analyses; for example, Hopper `dynamics_high` was −0.00445 (95% CI [−0.00597, −0.00294]) and Walker2d `dynamics_high` was −0.01111 (95% CI [−0.01232, −0.00990]) after recalibration. Before recalibration, the Hopper and Walker2d `observation_low` effects and the Walker2d `observation_high` effect were also negative. Only policy shift gave positive effects in every analysis, and observation shift gave positive effects in every recalibrated condition.
+The pre-specified hypothesis H1 stated that every intervention worsens calibration relative to the baseline, that is, every ATE on calibration error is positive. **The data rejected H1.** The dynamics intervention produced negative ATEs in both environments, at both severities, in both the corrected and the recalibrated analyses; for example, Hopper `dynamics_high` was −0.00445 (95% CI [−0.00597, −0.00294]) and Walker2d `dynamics_high` was −0.01194 (95% CI [−0.01232, −0.00990]) after recalibration. Before recalibration, the Hopper and Walker2d `observation_low` effects and the Walker2d `observation_high` effect were also negative. Only policy shift gave positive effects in every analysis, and observation shift gave positive effects in every recalibrated condition.
 
 We note what the negative dynamics effects do and do not show. The metric is an unsigned deviation from nominal coverage. An intervention that moves the error distribution in a direction that reduces the deviation yields a negative ATE, even though predictive accuracy may be worse. The ATE on calibration error should not be read as an effect on predictive quality. This manuscript does not test whether NLL, CRPS, or sharpness move in the same direction as calibration error under these interventions. Secondary metrics (NLL, CRPS, sharpness) were not analyzed at the mechanism level in this paper; the analysis is restricted to coverage-based calibration error. A mechanism-level analysis of sharpness and proper scoring rules is left to future work.
 

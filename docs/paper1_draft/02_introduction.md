@@ -20,7 +20,7 @@ Two methodological issues arose that changed the conclusions, and we treat them 
 
 ## Main finding
 
-Once the baseline was recalibrated, observation shift was the dominant pathway of calibration failure in both environments. Its ATE was between +0.07955 and +0.26588 depending on environment and severity, while dynamics and policy effects did not exceed 0.01111 in magnitude. Before recalibration, the ranking was less clear, and the observation effect at high severity had opposite signs in Hopper and Walker2d. The naive hypothesis that every intervention increases calibration error was not supported: dynamics interventions reduced the metric in both environments, at both severities.
+Once the baseline was recalibrated, observation shift was the dominant pathway of calibration failure in both environments. Its ATE was between +0.07749 and +0.26588 depending on environment and severity, while dynamics and policy effects did not exceed 0.01194 in magnitude. Before recalibration, the ranking was less clear, and the observation effect at high severity had opposite signs in Hopper and Walker2d. The naive hypothesis that every intervention increases calibration error was not supported: dynamics interventions reduced the metric in both environments, at both severities.
 
 ## Contributions
 
