@@ -95,10 +95,10 @@ All twelve effects excluded zero at the 95% level. The observation effects were 
 |---|---|---|---|
 | Hopper | low | 178 | 234 |
 | Hopper | high | 60 | 108 |
-| Walker2d | low | 48 | 16 |
-| Walker2d | high | 14 | 22 |
+| Walker2d | low | 44 | 16 |
+| Walker2d | high | 13 | 24 |
 
-The observation effect was between about 15 and 155 times larger than the dynamics or policy effect. In Hopper, the observation effects (0.20125 to 0.26588) exceeded dynamics and policy effects (at most 0.00445 in magnitude) by roughly one and a half to two orders of magnitude. In Walker2d, the observation effects (0.07749 to 0.15268) exceeded dynamics and policy effects (at most 0.01194 in magnitude) by roughly one to one and a half orders.
+The observation effect was between about 13 and 178 times larger than the dynamics or policy effect. In Hopper, the observation effects (0.20125 to 0.26588) exceeded dynamics and policy effects (at most 0.00445 in magnitude) by roughly one and a half to two orders of magnitude. In Walker2d, the observation effects (0.07749 to 0.15268) exceeded dynamics and policy effects (at most 0.01194 in magnitude) by roughly one to one and a half orders.
 
 *Figure 6.1 (description).* A grouped bar or forest plot with one panel per environment. The horizontal axis shows the recalibrated ATE on a symmetric-log scale, so that effects of order 10⁻³ and 10⁻¹ can be seen together. Rows are the six conditions, and horizontal bars show 95% $t$-intervals. A vertical line marks zero. Individual seed-level ATEs are overlaid as points to show between-seed variability.
 

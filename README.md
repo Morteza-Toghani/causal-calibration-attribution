@@ -163,78 +163,103 @@ The emphasis is on estimating the size and uncertainty of the mechanism-specific
 The current design recommends multiple matched training seeds, with the exact number adjusted according to the available compute budget and pilot results.
 
 ---
-## Key findings
+## Key results
 
-After migrating the original Paper 1 pipeline to this modular repository
-and reproducing its baseline and all three interventions **bit-for-bit**
-across 5 seeds, we obtained the following results. All numbers are
-means over 5 seeds; confidence intervals use Student's t with `df=4`
-(`t_crit = 2.776`).
+We trained 5-member Gaussian MLP ensembles on Minari Hopper and Walker2d
+(**10 seeds each**) and evaluated three evaluation-time interventions
+(dynamics, observation, policy) at two severities each. The primary
+estimand is the paired average treatment effect (ATE) on instance-level
+regression calibration error. All numbers are means over **n = 10 seeds**;
+confidence intervals use Student's t with `df = 9` (`t_crit = 2.262`).
 
-### 1. Baseline over-dispersion (α ≈ 0.24)
+### 1. Baseline over-dispersion
 
 The 5-member ensemble **over-covers at every nominal level**. Signed
 coverage at nominal 0.50 is `+0.35` (empirical 0.85 instead of 0.50).
-A single per-seed variance scaling factor `alpha ≈ 0.24` fitted on the
-**calibration split** (nominal 0.90) brings coverage to nominal. The
-baseline predictive variance is roughly 4× too large.
+A single per-seed variance scaling factor fitted on the **calibration
+split** (nominal 0.90) brings coverage to nominal:
 
-### 2. Observation shift dominates the mechanism story
+- Hopper: `alpha = 0.2361` (variance ~4.2x too large)
+- Walker2d: `alpha = 0.3743` (variance ~2.7x too large)
 
-After recalibration, the effect of mechanism-specific shift on the
-regression calibration error is:
+### 2. Observation shift dominates after recalibration
 
-| Condition | ATE | 95% t-CI | Magnitude |
-|---|---|---|---|
-| `observation_high` | **+0.264** | [+0.261, +0.267] | ×70 |
-| `observation_low`  | **+0.199** | [+0.194, +0.203] | ×53 |
-| `dynamics_high`    | -0.0038 | [-0.0059, -0.0017] | ×1.0 |
-| `policy_high`      | +0.0027 | [+0.0018, +0.0037] | ×0.7 |
-| `dynamics_low`     | -0.0012 | [-0.0016, -0.0008] | ×0.3 |
-| `policy_low`       | +0.0008 | [+0.0004, +0.0012] | ×0.2 |
+Recalibrated ATE (main result), n = 10 per environment:
 
-The observation pathway produces effects **two orders of magnitude
-larger** than dynamics or policy. Once the baseline is properly
-calibrated, only observation shift has a practically relevant effect.
+| Condition | Hopper | Walker2d |
+|---|---|---|
+| `observation_low`  | **+0.20125** +/- 0.00429 | **+0.07749** +/- 0.00393 |
+| `observation_high` | **+0.26588** +/- 0.00319 | **+0.15268** +/- 0.00383 |
+| `dynamics_low`     | -0.00113 +/- 0.00068 | -0.00178 +/- 0.00042 |
+| `dynamics_high`    | -0.00445 +/- 0.00212 | -0.01194 +/- 0.00125 |
+| `policy_low`       | +0.00086 +/- 0.00029 | +0.00486 +/- 0.00071 |
+| `policy_high`      | +0.00247 +/- 0.00094 | +0.00630 +/- 0.00248 |
 
-### 3. Re-simulation bias in dynamics and policy
+95% t-intervals for all twelve conditions are reported in
+[`results/tables/final_n10_summary_recalibrated.csv`](results/tables/final_n10_summary_recalibrated.csv).
 
-An identity intervention (`mass_scale=1.0` for dynamics, `action_scale=1.0`
-for policy) does **not** reproduce the dataset target bit-for-bit:
-`max|y_new - y| ≈ 2.7` and ATE bias ≈ -0.003 per seed. The cause is
-MuJoCo `set_state` + `step` not resetting `qacc_warmstart` internally,
-plus the x=0 reconstruction of state from the observation. Correcting
-the paired baseline to use `y_resim(scale=1.0)` changes the D and P
-ATEs substantially — see [`docs/paper1_findings.md`](docs/paper1_findings.md).
+Observation effects are **13x to 178x larger** than dynamics or policy
+at matched severity labels. All twelve effects exclude zero at 95%.
+
+### 3. Sensitivity to the variance-scaling factor alpha
+
+We swept alpha on a 20-point grid (alpha in [0.05, 1.00]) and recomputed
+the ATE for all twelve conditions at each value. The observation effect
+remains the dominant pathway across the swept range:
+
+| alpha | Hopper O_high/D_high | Walker2d O_high/D_high |
+|---|---|---|
+| fitted (0.25 / 0.35) | 45.7x | 15.6x |
+| 0.50 | 9.1x | 5.9x |
+| 0.75 | 4.6x | 1.1x |
+| 1.00 (no recalibration) | 1.9x | 1.4x |
+
+The sign flip in `observation_low` as alpha increases is
+**over-dispersion-driven, not environment-driven** -- see
+[`docs/paper1_findings.md`](docs/paper1_findings.md).
+
+![Alpha sensitivity](results/figures/alpha_sensitivity.png)
+
+### 4. Re-simulation bias in dynamics and policy
+
+An identity intervention (`mass_scale=1.0` for dynamics,
+`action_scale=1.0` for policy) does **not** reproduce the dataset target
+bit-for-bit. The cause is MuJoCo `set_state` + `step` not resetting
+`qacc_warmstart` internally, plus the x=0 reconstruction of state from
+the observation. Correcting the paired baseline to use
+`y_resim(scale=1.0)` changes the D and P ATEs substantially.
 
 ### Reproduce
+python scripts/final_n10_analysis.py # n=10 corrected ATE
+python scripts/final_n10_recalibrated.py # n=10 recalibrated ATE
+python scripts/alpha_sensitivity.py --env both # alpha sweep
+python scripts/dom_ratio.py # O/D ratio table
+python scripts/fill_placeholders.py # sign-flip p-values
 
-```bash
-python scripts/reproduce_baseline_all_seeds.py         # baseline, 5 seeds
-python scripts/reproduce_interventions_all_seeds.py    # interventions, 5 seeds
-python scripts/null_control.py                         # re-simulation bias
-python scripts/analyze_signed_coverage.py              # direction-aware coverage
-python scripts/analyze_interventions_corrected.py      # corrected ATE
-python scripts/analyze_t_ci.py                         # t-CI corrected
-python scripts/recalibrate_and_rerun.py                # recalibration
-python scripts/analyze_t_ci_recalibrated.py            # t-CI recalibrated
+See [`docs/paper1_findings.md`](docs/paper1_findings.md) for the full
+findings summary and [`docs/paper1_draft/`](docs/paper1_draft/) for the
+manuscript draft.
 
-
+---
 
 ## Current Status
 
-> **Status: IN DESIGN / PILOT PHASE**
+> **Status: REPRODUCIBLE**
 
-The research question and experimental protocol are defined. The implementation is partially complete, and the full pipeline (real data, multi-seed, mechanism-specific interventions, CRN-paired evaluation) is still in progress.
+The research question and experimental protocol are defined and
+completed. The full pipeline (Minari data, 10-seed evaluation for both
+Hopper and Walker2d, mechanism-specific interventions, CRN-paired
+evaluation, baseline recalibration, and alpha-sensitivity sweep) is
+implemented and reproducible. Bit-exact reproduction of the original
+FROZEN pipeline is verified for baseline and all three interventions.
 
 The project follows an evidence-based maturity model:
 
 `IN DESIGN -> PROTOTYPE -> PRELIMINARY -> VALIDATED -> REPRODUCIBLE`
 
-These labels are intended to reflect the actual state of the work. A running script is not treated as validated evidence.
-
-No final empirical claim is reported in this repository until the corresponding experiment, analysis, and reproducibility checks have been completed.
-
+The current state is **REPRODUCIBLE**. A manuscript draft is available
+in `docs/paper1_draft/`, and the key findings are summarized in
+`docs/paper1_findings.md`.
 ---
 
 ## Repository Structure
