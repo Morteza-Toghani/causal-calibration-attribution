@@ -1,5 +1,10 @@
 # Counterfactual Causal Attribution of Calibration Failure in Uncertainty-Aware World Models
 
+[![CI](https://github.com/Morteza-Toghani/causal-calibration-attribution/actions/workflows/ci.yml/badge.svg)](https://github.com/Morteza-Toghani/causal-calibration-attribution/actions/workflows/ci.yml)
+[![Python 3.10 | 3.12](https://img.shields.io/badge/python-3.10%20%7C%203.12-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Tests: 57 passing](https://img.shields.io/badge/tests-57%20passing-brightgreen.svg)](tests/)
+
 > **MSc Thesis Research · Artificial Intelligence & Robotics**
 
 This repository contains the research code and experimental design for my Master's thesis on calibration failure in uncertainty-aware world models under mechanism-specific distribution shift.
