@@ -1,4 +1,4 @@
-﻿"""Fill placeholders in Paper 1 draft.
+"""Fill placeholders in Paper 1 draft.
 
 - Computes sign-flip permutation p-values for recalibrated ATE
   (exact, 2^n over n=10 seeds) + Holm-Bonferroni correction.

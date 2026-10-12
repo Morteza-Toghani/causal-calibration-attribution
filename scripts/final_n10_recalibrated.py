@@ -15,9 +15,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import minari
 import numpy as np
 import pandas as pd
-import minari
 
 from src.calibration.frozen_metrics import z_for_central_coverage
 from src.calibration.instance import instance_calibration_error
@@ -28,7 +28,6 @@ from src.interventions.observation import compute_obs_scale, make_observation_no
 from src.interventions.policy import action_scaler, resimulate_with_new_action
 from src.model.ensemble_v2 import load_member, predict_ensemble
 from src.stats import bootstrap_mean_ci, t_ci
-
 
 DATASET_IDS = {
     'hopper': 'mujoco/hopper/medium-v0',

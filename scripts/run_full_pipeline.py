@@ -18,20 +18,17 @@ For walker2d, checkpoints are read from results/ensemble_training/walker2d/.
 from __future__ import annotations
 
 import argparse
-import json
-import math
 import sys
 import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import minari
 import numpy as np
 import pandas as pd
-import minari
-from scipy.stats import t as t_dist
 
-from src.calibration.frozen_metrics import metric_bundle, z_for_central_coverage
+from src.calibration.frozen_metrics import z_for_central_coverage
 from src.calibration.instance import instance_calibration_error
 from src.data.frozen_extract import extract_transitions
 from src.data.frozen_split import deterministic_episode_split
@@ -40,7 +37,6 @@ from src.interventions.observation import compute_obs_scale, make_observation_no
 from src.interventions.policy import action_scaler, resimulate_with_new_action
 from src.model.ensemble_v2 import load_member, predict_ensemble
 from src.stats import bootstrap_mean_ci, paired_permutation_pvalue, t_ci
-
 
 DATASET_IDS = {
     'hopper': 'mujoco/hopper/medium-v0',
@@ -228,7 +224,9 @@ def main():
         print(f'  processing seed {seed_idx}...')
         t0 = time.time()
         n, a, s = process_seed(env_name, dataset, seed_idx)
-        all_null.extend(n); all_ate.extend(a); all_signed.extend(s)
+        all_null.extend(n)
+        all_ate.extend(a)
+        all_signed.extend(s)
         print(f'    done in {time.time()-t0:.1f}s')
 
     out_dir = Path('results/tables')

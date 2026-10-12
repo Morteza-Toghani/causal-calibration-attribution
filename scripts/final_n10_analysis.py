@@ -13,18 +13,15 @@ Usage:
 """
 from __future__ import annotations
 
-import json
-import math
 import sys
 import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import minari
 import numpy as np
 import pandas as pd
-import minari
-from scipy.stats import t as t_dist
 
 from src.calibration.frozen_metrics import z_for_central_coverage
 from src.calibration.instance import instance_calibration_error
@@ -35,7 +32,6 @@ from src.interventions.observation import compute_obs_scale, make_observation_no
 from src.interventions.policy import action_scaler, resimulate_with_new_action
 from src.model.ensemble_v2 import load_member, predict_ensemble
 from src.stats import bootstrap_mean_ci, paired_permutation_pvalue, t_ci
-
 
 DATASET_IDS = {
     'hopper': 'mujoco/hopper/medium-v0',
@@ -99,7 +95,7 @@ def process_seed(env_name, dataset, seed_idx):
     dyn_n = min(len(test_obs), 5000)
     rng_dyn = np.random.default_rng(11000 + seed_idx)
     dyn_idx = np.sort(rng_dyn.choice(len(test_obs), dyn_n, replace=False))
-    dyn_obs, dyn_act, dyn_y = test_obs[dyn_idx], test_act[dyn_idx], test_y[dyn_idx]
+    dyn_obs, dyn_act = test_obs[dyn_idx], test_act[dyn_idx]
     pred_dyn = predict_ensemble(members, dyn_obs, dyn_act)
 
     y_dyn_resim_1, _ = dynamics_next_state_from_env(

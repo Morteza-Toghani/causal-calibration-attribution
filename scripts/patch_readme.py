@@ -1,4 +1,4 @@
-﻿from pathlib import Path
+from pathlib import Path
 
 p = Path("README.md")
 s = p.read_text(encoding="utf-8")

@@ -4,8 +4,8 @@ Outputs:
   docs/paper1_draft/_PLACEHOLDERS.md   (human-readable checklist)
   docs/paper1_draft/_PLACEHOLDERS.json (machine-readable)
 """
-import re
 import json
+import re
 from pathlib import Path
 
 DRAFT_DIR = Path("docs/paper1_draft")

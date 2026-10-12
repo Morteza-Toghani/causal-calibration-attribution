@@ -1,4 +1,4 @@
-﻿from pathlib import Path
+from pathlib import Path
 
 p = Path("docs/paper1_draft/07_discussion.md")
 s = p.read_text(encoding="utf-8")

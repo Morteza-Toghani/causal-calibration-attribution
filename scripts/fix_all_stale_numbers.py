@@ -1,4 +1,4 @@
-﻿from pathlib import Path
+from pathlib import Path
 
 base = Path("docs/paper1_draft")
 FILES = [

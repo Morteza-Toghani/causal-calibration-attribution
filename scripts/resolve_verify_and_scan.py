@@ -1,5 +1,5 @@
-﻿from pathlib import Path
 import re
+from pathlib import Path
 
 # ============================================================
 # STEP 1 — Resolve 5 [VERIFY] placeholders in 04_method.md
@@ -105,7 +105,7 @@ for name in ["05_experimental_setup.md", "06_results.md", "07_discussion.md",
     if not fp.exists():
         continue
     text = fp.read_text(encoding="utf-8")
-    hdrs = [l for l in text.splitlines() if l.startswith("## ")]
+    hdrs = [line for line in text.splitlines() if line.startswith("## ")]
     print(f"  {name}: {len(hdrs)} sections")
     for h in hdrs:
         print(f"    {h}")
